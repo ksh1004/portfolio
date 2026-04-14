@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>포트폴리오 | 김순하</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-primary: #0d0f14;
+      --bg-secondary: #13161e;
+      --bg-card: #1a1e29;
+      --bg-card-hover: #1f2434;
+      --accent: #f97316;
+      --accent-dim: #c2601a;
+      --accent-glow: rgba(249, 115, 22, 0.15);
+      --blue: #3b82f6;
+      --blue-dim: #1d4ed8;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #475569;
+      --border: #2a2f3e;
+      --border-bright: #3a4054;
+      --nav-h: 70px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-dim);
+      border-radius: 3px;
+    }
+
+    /* ===== NAVBAR ===== */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: rgba(13, 15, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      transition: all 0.3s;
+    }
+
+    #navbar.scrolled {
+      background: rgba(13, 15, 20, 0.97);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-contact-btn {
+      padding: 0.45rem 1.2rem;
+      background: var(--accent);
+      color: #fff !important;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: background 0.2s !important;
+    }
+
+    .nav-contact-btn:hover {
+      background: var(--accent-dim) !important;
+    }
+
+    .nav-contact-btn::after {
+      display: none !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    /* ===== SECTIONS COMMON ===== */
+    section {
+      padding: 100px 5%;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .section-title .ko {
+      color: var(--text-primary);
+    }
+
+    .section-title .en {
+      color: var(--text-muted);
+      font-size: 0.55em;
+      font-weight: 400;
+      margin-left: 10px;
+      letter-spacing: 0.05em;
+      vertical-align: middle;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin-top: 16px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ===== FADE-IN ANIMATION ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: calc(var(--nav-h) + 40px);
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(249, 115, 22, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 10% 80%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
+        var(--bg-primary);
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 24px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    .hero-name {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .hero-name .accent {
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 0.8rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      padding: 0.8rem 2rem;
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-bright);
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Card */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+    }
+
+    .hero-avatar {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--accent), var(--blue));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-card-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .hero-card-role {
+      font-size: 0.83rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .hero-stat {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      animation: bounce 2s infinite;
+    }
+
+    .hero-scroll-hint .arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(45deg);
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px);
+      }
+    }
+
+    /* ===== SUMMARY ===== */
+    #summary {
+      background: var(--bg-secondary);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .summary-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .summary-card-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+
+    .summary-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .summary-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== EDUCATION ===== */
+    #education {
+      background: var(--bg-primary);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--border));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px rgba(249, 115, 22, 0.3);
+    }
+
+    .timeline-date {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .timeline-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .timeline-sub {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      border-radius: 12px;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* ===== EXPERIENCE ===== */
+    #experience {
+      background: var(--bg-primary);
+    }
+
+    .exp-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .exp-tab {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .exp-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .exp-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .exp-panel {
+      display: none;
+    }
+
+    .exp-panel.active {
+      display: block;
+    }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .exp-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .exp-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .exp-card-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .exp-card-body {
+      flex: 1;
+    }
+
+    .exp-card-period {
+      font-size: 0.73rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 5px;
+    }
+
+    .exp-card-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .exp-card-org {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .exp-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ===== CAREER ===== */
+    #career {
+      background: var(--bg-secondary);
+    }
+
+    .career-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      align-items: start;
+      transition: border-color 0.2s;
+    }
+
+    .career-item:hover {
+      border-color: var(--border-bright);
+    }
+
+    .career-left {}
+
+    .career-period {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    .career-company {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .career-right {}
+
+    .career-role {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .career-team {
+      font-size: 0.83rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .career-desc {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .career-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ===== CERTIFICATION ===== */
+    #certification {
+      background: var(--bg-primary);
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .cert-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-glow), rgba(59, 130, 246, 0.1));
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .cert-info h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .cert-info p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .cert-info .cert-date {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* ===== SKILLS ===== */
+    #skills {
+      background: var(--bg-secondary);
+    }
+
+    .skills-group {
+      margin-bottom: 40px;
+    }
+
+    .skills-group-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 120px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .skill-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1.2s ease;
+    }
+
+    .skill-level {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== AWARD ===== */
+    #award {
+      background: var(--bg-primary);
+    }
+
+    .award-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .award-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .award-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .award-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .award-rank {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .award-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .award-org {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .award-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== PROJECT ===== */
+    #project {
+      background: var(--bg-secondary);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+    }
+
+    .project-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card-hover));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-thumb-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      font-size: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-type-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      background: rgba(13, 15, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .project-body {
+      padding: 24px;
+    }
+
+    .project-period {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .project-tag {
+      padding: 3px 10px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 12px;
+      font-size: 0.72rem;
+      color: var(--blue);
+      font-weight: 500;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .project-link {
+      padding: 6px 14px;
+      border: 1px solid var(--border-bright);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .project-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ===== CONTACT ===== */
+    #contact {
+      background: var(--bg-primary);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .contact-intro h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .contact-intro h3 span {
+      color: var(--accent);
+    }
+
+    .contact-intro p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-link-item:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .contact-link-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-glow);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-link-info {
+      flex: 1;
+    }
+
+    .contact-link-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .contact-link-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .contact-link-arrow {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .contact-form h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .form-submit:hover {
+      background: var(--accent-dim);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 32px 5%;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-name {
+      font-size: 1.1rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .footer-name span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== MOBILE NAV ===== */
+    @media (max-width: 900px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-110%);
+        transition: transform 0.3s;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+      }
+
+      .nav-links a {
+        padding: 16px 5%;
+        border-bottom: 1px solid var(--border);
+        width: 100%;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        display: none;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .career-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 70px 5%;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <div class="nav-logo">K<span>.</span>Portfolio</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">소개</a></li>
+      <li><a href="#summary">요약</a></li>
+      <li><a href="#education">학력</a></li>
+      <li><a href="#career">경력</a></li>
+      <li><a href="#experience">경험</a></li>
+      <li><a href="#skills">기술</a></li>
+      <li><a href="#project">프로젝트</a></li>
+      <li><a href="#contact" class="nav-contact-btn">연락하기</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">데이터 분석가</div>
+        <h1 class="hero-name">안녕하십니까,<br /><span class="accent">데이터 분석가</span><br />김순하입니다.</h1>
+        <p class="hero-title">김순하 · Data Analysis Developer</p>
+        <p class="hero-desc">
+          데이터에서 인사이트를 발굴하고, 이를 실질적인 비즈니스 가치로 연결하는 것을 즐깁니다.
+          복잡한 데이터를 명확하고 이해하기 쉬운 형태로 전달하는 것이 저의 강점입니다.
+        </p>
+        <div class="hero-btns">
+          <a href="#project" class="btn-primary">프로젝트 보기</a>
+          <a href="#contact" class="btn-outline">연락하기</a>
+        </div>
+      </div>
+
+      <div class="hero-card fade-up">
+        <div class="hero-avatar">📊</div>
+        <div class="hero-card-name">김순하</div>
+        <div class="hero-card-role">DATA ANALYSIS DEVELOPER</div>
+        <p style="font-size:0.83rem; color:var(--text-secondary); line-height:1.6;">
+          데이터 분석 · 머신러닝 · 시각화<br />비즈니스 인텔리전스 · 파이프라인 구축
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">N<span style="font-size:0.8rem">+</span></div>
+            <div class="hero-stat-label">프로젝트</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">N<span style="font-size:0.8rem">년</span></div>
+            <div class="hero-stat-label">경력</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">N<span style="font-size:0.8rem">+</span></div>
+            <div class="hero-stat-label">자격증</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">N<span style="font-size:0.8rem">+</span></div>
+            <div class="hero-stat-label">수상</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>SCROLL</span>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== SUMMARY ===== -->
+  <section id="summary">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Overview</div>
+        <h2 class="section-title">
+          <span class="ko">요약</span>
+          <span class="en">SUMMARY</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-card fade-up">
+          <div class="summary-card-icon">🎯</div>
+          <h3>데이터 분석 전문성</h3>
+          <p>
+            대용량 데이터 처리 및 통계 분석을 통해 비즈니스 문제를 해결합니다.
+            데이터 기반의 의사결정 프로세스 구축 경험을 보유하고 있습니다.
+            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+          </p>
+        </div>
+        <div class="summary-card fade-up">
+          <div class="summary-card-icon">🤖</div>
+          <h3>머신러닝 / AI</h3>
+          <p>
+            예측 모델 개발, 분류·회귀 문제 해결, 자연어 처리(NLP) 등 다양한
+            머신러닝 프로젝트를 수행했습니다.
+            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+          </p>
+        </div>
+        <div class="summary-card fade-up">
+          <div class="summary-card-icon">📈</div>
+          <h3>데이터 시각화</h3>
+          <p>
+            복잡한 분석 결과를 직관적인 대시보드와 리포트로 전달합니다.
+            Tableau, Power BI, Python 기반 시각화 도구를 활용합니다.
+            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+          </p>
+        </div>
+        <div class="summary-card fade-up">
+          <div class="summary-card-icon">🔧</div>
+          <h3>데이터 파이프라인</h3>
+          <p>
+            ETL 파이프라인 설계 및 구축, 데이터 웨어하우스 관리,
+            자동화된 데이터 수집 시스템 개발 경험이 있습니다.
+            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Academic Background</div>
+        <h2 class="section-title">
+          <span class="ko">학력</span>
+          <span class="en">EDUCATION</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="timeline fade-up">
+        <div class="timeline-item">
+          <div class="timeline-date">2020.03 — 2024.02</div>
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
+            <img src="inha_univ.jpg" alt="인하대학교 로고"
+              style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:8px; padding:4px; border:1px solid var(--border); flex-shrink:0;" />
+            <div>
+              <div class="timeline-title">인하대학교 <span
+                  style="font-size:0.75em; font-weight:400; color:var(--text-muted);">Inha University</span></div>
+              <div class="timeline-sub">컴퓨터공학과 / 정치외교학과 · 학사 <span style="color:var(--text-muted); font-size:0.9em;">·
+                  Dept. of Computer Engineering / Political Science &amp; Diplomacy · B.S.</span></div>
+            </div>
+          </div>
+          <div class="timeline-desc">
+            [제1전공 : 컴퓨터공학]자료구조, 알고리즘, 선형대수, 기계학습 등 과목 이수<br />
+            [제2전공 : 정치외교학]데이터사이언스로의 정치학 입문, 정치통계론 등 과목 이수
+          </div>
+          <span class="timeline-badge">GPA 0.0 / 4.5</span>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2016.03 — 2019.02</div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <img src="bugil_highschool.jpg" alt="북일고등학교 로고"
+              style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:8px; padding:4px; border:1px solid var(--border); flex-shrink:0;" />
+            <div>
+              <div class="timeline-title">북일고등학교 <span
+                  style="font-size:0.75em; font-weight:400; color:var(--text-muted);">Bugil High School</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CAREER ===== -->
+  <section id="career">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Work Experience</div>
+        <h2 class="section-title">
+          <span class="ko">경력</span>
+          <span class="en">CAREER</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- 탭 -->
+      <div class="exp-tabs fade-up">
+        <button class="exp-tab active" onclick="switchCareerTab(event, 'career-tab-1')">대한민국 육군</button>
+      </div>
+
+      <!-- 대한민국 육군 -->
+      <div id="career-tab-1" class="exp-panel active">
+
+        <div class="career-item fade-up">
+          <div class="career-left">
+            <div class="career-period">2025.06 — 현재</div>
+            <div class="career-company">제7보병사단 8보병여단 1대대<span style="color:var(--text-muted); font-size:0.88em;">○○ Unit
+                ○○ Battalion</span></div>
+          </div>
+          <div class="career-right">
+            <div class="career-role">정보장교 · Intelligence Officer</div>
+            <div class="career-team">정보과</div>
+            <div class="career-desc">
+              · '25 UFS
+            </div>
+            <div class="career-tags">
+              <span class="tag">Intelligence</span>
+              <span class="tag">Security</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="career-item fade-up">
+          <div class="career-left">
+            <div class="career-period">2025.03</div>
+            <div class="career-company" style="font-size:0.78rem; white-space:nowrap;">연합군사정보지원작전구성군사령부<br /><span
+                style="color:var(--text-muted); font-size:0.95em;">CMISOCC</span></div>
+          </div>
+          <div class="career-right">
+            <div class="career-role">장교 · Officer</div>
+            <div class="career-team">국군심리전단</div>
+            <div class="career-desc"> · '25 FS</div>
+            <div class="career-tags">
+              <span class="tag">Intelligence</span>
+              <span class="tag">Freedom Shield</span>
+              <span class="tag">ROK-US</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="career-item fade-up">
+          <div class="career-left">
+            <div class="career-period">2024.06 — 2025.06</div>
+            <div class="career-company">제7보병사단 8보병여단 1대대 <span style="color:var(--text-muted); font-size:0.88em;">○○
+                Unit ·
+                ○○ Battalion</span></div>
+          </div>
+          <div class="career-right">
+            <div class="career-role">소대장 · Platoon Leader</div>
+            <div class="career-team">2중대</div>
+            <div class="career-desc">
+              · '24 KCTC<br />
+              · '25 BCTP<br />
+            </div>
+            <div class="career-tags">
+              <span class="tag">Leadership</span>
+              <span class="tag">Management</span>
+              <span class="tag">Intelligence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="career-item fade-up">
+        <div class="career-left">
+          <div class="career-period">2024.03 — 2024.06</div>
+          <div class="career-company">육군교육사령부 육군정보학교<span style="color:var(--text-muted); font-size:0.88em;">KAIS</span>
+          </div>
+        </div>
+        <div class="career-right">
+          <div class="career-role">교육생 · Trainee</div>
+          <div class="career-tags">
+            <span class="tag">Military Officer</span>
+            <span class="tag">Intelligence</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Activities &amp; Training</div>
+        <h2 class="section-title">
+          <span class="ko">경험</span>
+          <span class="en">EXPERIENCE</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- 탭 -->
+      <div class="exp-tabs fade-up">
+        <button class="exp-tab active" onclick="switchTab(event, 'tab-activity')">활동 · Activity</button>
+        <button class="exp-tab" onclick="switchTab(event, 'tab-edu')">교육 수료 · Training</button>
+        <button class="exp-tab" onclick="switchTab(event, 'tab-external')">대외활동 · External</button>
+      </div>
+
+      <!-- 활동 -->
+      <div id="tab-activity" class="exp-panel active fade-up">
+        <div class="exp-grid">
+          <div class="exp-card">
+            <div class="exp-card-icon">🪖</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2022.02 - 2024.02</div>
+              <div class="exp-card-title">120ROTC 62th</div>
+              <div class="exp-card-org">인하대학교</div>
+              <div class="exp-card-desc">ROTC(학생군사교육단) 과정</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">🧑🏻‍💼</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.03 — 2023.08</div>
+              <div class="exp-card-title">교내 근로장학생</div>
+              <div class="exp-card-org">인하대학교</div>
+              <div class="exp-card-desc">인하대학교 학생군사교육단 근로장학생</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">✈️</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.09</div>
+              <div class="exp-card-title">해외 전사적지 답사(하와이)</div>
+              <div class="exp-card-org">인하대학교</div>
+              <div class="exp-card-desc">미 육군 태평양사령부, 미 25사단 등 방문</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">👨‍💻</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.09 — 2023.12</div>
+              <div class="exp-card-title">인하대학교 캡스톤디자인</div>
+              <div class="exp-card-org">인하대학교 컴퓨터공학과</div>
+              <div class="exp-card-desc">팀 프로젝트 및 성과발표회<br />백엔드 개발 및 발표자<br />🏆 장려상 수상</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 교육 수료 -->
+      <div id="tab-edu" class="exp-panel fade-up">
+        <div class="exp-grid">
+          <div class="exp-card">
+            <div class="exp-card-icon">📚</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.07 — 2023.09</div>
+              <div class="exp-card-title">데이터 분석 부트캠프 수료</div>
+              <div class="exp-card-org">○○교육기관</div>
+              <div class="exp-card-desc">Python, SQL, 머신러닝 실습 중심 교육 과정 수료.<br />(예시 텍스트)</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">🎯</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.01 — 2023.03</div>
+              <div class="exp-card-title">SQL / 데이터베이스 심화 과정</div>
+              <div class="exp-card-org">○○플랫폼 (온라인)</div>
+              <div class="exp-card-desc">고급 쿼리, 성능 최적화, 데이터 모델링 수료.<br />(예시 텍스트)</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">🤖</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2022.09 — 2022.12</div>
+              <div class="exp-card-title">딥러닝 특강 수료</div>
+              <div class="exp-card-org">○○대학교 / ○○기관</div>
+              <div class="exp-card-desc">CNN, RNN, Transformer 등 딥러닝 모델 이론 및 실습.<br />(예시 텍스트)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 대외활동 -->
+      <div id="tab-external" class="exp-panel fade-up">
+        <div class="exp-grid">
+          <div class="exp-card">
+            <div class="exp-card-icon">🏆</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2024.01 — 2024.03</div>
+              <div class="exp-card-title">○○ 기업 서포터즈 N기</div>
+              <div class="exp-card-org">○○기업</div>
+              <div class="exp-card-desc">콘텐츠 제작 및 SNS 홍보 활동. 우수 서포터즈 선정.<br />(예시 텍스트)</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">💡</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.10 — 2023.11</div>
+              <div class="exp-card-title">○○ 해커톤 참가</div>
+              <div class="exp-card-org">주최: ○○기관</div>
+              <div class="exp-card-desc">48시간 데이터 분석 해커톤 참가. 팀 리더 역할 수행.<br />(예시 텍스트)</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-card-icon">🌐</div>
+            <div class="exp-card-body">
+              <div class="exp-card-period">2023.03 — 2023.06</div>
+              <div class="exp-card-title">데이터 멘토링 멘티 참가</div>
+              <div class="exp-card-org">○○멘토링 프로그램</div>
+              <div class="exp-card-desc">현직 데이터 분석가 멘토링 수료. 커리어 방향성 및 실무 역량 습득.<br />(예시 텍스트)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CERTIFICATION ===== -->
+  <section id="certification">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Licenses &amp; Certificates</div>
+        <h2 class="section-title">
+          <span class="ko">자격증</span>
+          <span class="en">CERTIFICATION</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="cert-grid fade-up">
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <div class="cert-info">
+            <h4>빅데이터분석기사</h4>
+            <p>한국데이터산업진흥원</p>
+            <div class="cert-date">2023.12 취득</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <div class="cert-info">
+            <h4>ADsP (데이터분석 준전문가)</h4>
+            <p>한국데이터산업진흥원</p>
+            <div class="cert-date">2023.04 취득</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <div class="cert-info">
+            <h4>정보처리기사</h4>
+            <p>한국산업인력공단</p>
+            <div class="cert-date">2022.11 취득</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <div class="cert-info">
+            <h4>자격증 예시 4</h4>
+            <p>발급 기관 (예시)</p>
+            <div class="cert-date">YYYY.MM 취득</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Technical Competencies</div>
+        <h2 class="section-title">
+          <span class="ko">기술</span>
+          <span class="en">SKILLS</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="fade-up">
+        <div class="skills-group">
+          <div class="skills-group-title">언어 · Language</div>
+          <div class="skills-list">
+            <div class="skill-item" data-level="90">
+              <span class="skill-name">Python</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Expert</span>
+            </div>
+            <div class="skill-item" data-level="80">
+              <span class="skill-name">SQL</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-item" data-level="65">
+              <span class="skill-name">R</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+            <div class="skill-item" data-level="55">
+              <span class="skill-name">Java</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-title">분석 · Analytics</div>
+          <div class="skills-list">
+            <div class="skill-item" data-level="85">
+              <span class="skill-name">Pandas</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-item" data-level="80">
+              <span class="skill-name">Scikit-learn</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-item" data-level="70">
+              <span class="skill-name">TensorFlow</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+            <div class="skill-item" data-level="70">
+              <span class="skill-name">PyTorch</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-title">시각화 · Visualization</div>
+          <div class="skills-list">
+            <div class="skill-item" data-level="85">
+              <span class="skill-name">Tableau</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-item" data-level="75">
+              <span class="skill-name">Matplotlib</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-item" data-level="70">
+              <span class="skill-name">Power BI</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-title">인프라 · Infrastructure</div>
+          <div class="skills-list">
+            <div class="skill-item" data-level="70">
+              <span class="skill-name">BigQuery</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+            <div class="skill-item" data-level="65">
+              <span class="skill-name">AWS</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+            <div class="skill-item" data-level="60">
+              <span class="skill-name">Airflow</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+            <div class="skill-item" data-level="65">
+              <span class="skill-name">Docker</span>
+              <div class="skill-bar">
+                <div class="skill-bar-fill"></div>
+              </div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AWARD ===== -->
+  <section id="award">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Honors &amp; Recognition</div>
+        <h2 class="section-title">
+          <span class="ko">수상</span>
+          <span class="en">AWARD</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="award-list fade-up">
+        <div class="award-card">
+          <div class="award-rank">🥇 대상</div>
+          <div class="award-name">○○ 데이터 분석 공모전 대상</div>
+          <div class="award-org">주최: ○○기관 / ○○기업</div>
+          <div class="award-date">2024.06</div>
+        </div>
+        <div class="award-card">
+          <div class="award-rank">🥈 우수상</div>
+          <div class="award-name">○○ 해커톤 우수상</div>
+          <div class="award-org">주최: ○○기관</div>
+          <div class="award-date">2023.11</div>
+        </div>
+        <div class="award-card">
+          <div class="award-rank">🏆 최우수상</div>
+          <div class="award-name">교내 캡스톤디자인 경진대회 최우수상</div>
+          <div class="award-org">주최: ○○대학교</div>
+          <div class="award-date">2023.06</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECT ===== -->
+  <section id="project">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Works &amp; Portfolio</div>
+        <h2 class="section-title">
+          <span class="ko">프로젝트</span>
+          <span class="en">PROJECT</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="project-grid fade-up">
+
+        <div class="project-card">
+          <div class="project-thumb">
+            <div class="project-thumb-bg">📊</div>
+            📊
+            <span class="project-type-badge">개인 프로젝트</span>
+          </div>
+          <div class="project-body">
+            <div class="project-period">2024.03 — 2024.05</div>
+            <div class="project-name">고객 이탈 예측 모델 개발<br /><small
+                style="font-weight:400;color:var(--text-muted)">Customer Churn Prediction</small></div>
+            <div class="project-desc">
+              머신러닝 기반 고객 이탈 예측 모델을 개발하여 00% 정확도를 달성했습니다.
+              SHAP 분석을 통한 주요 이탈 요인 도출 및 마케팅팀에 인사이트 전달.
+              (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">XGBoost</span>
+              <span class="project-tag">SHAP</span>
+              <span class="project-tag">Pandas</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">🔗 GitHub</a>
+              <a href="#" class="project-link">📄 발표자료</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb">
+            <div class="project-thumb-bg">📈</div>
+            📈
+            <span class="project-type-badge">팀 프로젝트</span>
+          </div>
+          <div class="project-body">
+            <div class="project-period">2023.09 — 2023.12</div>
+            <div class="project-name">실시간 매출 분석 대시보드<br /><small
+                style="font-weight:400;color:var(--text-muted)">Real-time Sales Dashboard</small></div>
+            <div class="project-desc">
+              실시간 매출 데이터를 수집·처리하여 경영진용 대시보드를 구축했습니다.
+              Airflow를 이용한 자동화 파이프라인 구축으로 매일 리포트 자동 생성.
+              (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Tableau</span>
+              <span class="project-tag">BigQuery</span>
+              <span class="project-tag">Airflow</span>
+              <span class="project-tag">SQL</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">🔗 GitHub</a>
+              <a href="#" class="project-link">🖥 Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb">
+            <div class="project-thumb-bg">🤖</div>
+            🤖
+            <span class="project-type-badge">캡스톤 디자인</span>
+          </div>
+          <div class="project-body">
+            <div class="project-period">2023.03 — 2023.06</div>
+            <div class="project-name">자연어 처리 기반 감성 분석<br /><small style="font-weight:400;color:var(--text-muted)">NLP
+                Sentiment Analysis</small></div>
+            <div class="project-desc">
+              소셜미디어 데이터를 활용한 브랜드 감성 분석 시스템을 구축했습니다.
+              BERT 기반 모델 파인튜닝으로 00% 분류 정확도 달성.
+              (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">BERT</span>
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">Hugging Face</span>
+              <span class="project-tag">FastAPI</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">🔗 GitHub</a>
+              <a href="#" class="project-link">📄 논문</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">
+          <span class="ko">연락처</span>
+          <span class="en">CONTACT</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="fade-up">
+          <div class="contact-intro">
+            <h3>함께 일하고 싶다면<br /><span>언제든 연락주세요.</span></h3>
+            <p>
+              새로운 기회, 협업 제안, 또는 단순한 질문도 환영합니다.<br />
+              최대한 빠르게 답변 드리겠습니다.
+            </p>
+          </div>
+
+          <div class="contact-links">
+            <a href="mailto:example@email.com" class="contact-link-item">
+              <div class="contact-link-icon">✉️</div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">EMAIL</div>
+                <div class="contact-link-value">example@email.com</div>
+              </div>
+              <div class="contact-link-arrow">→</div>
+            </a>
+
+            <a href="https://github.com/your-github" target="_blank" class="contact-link-item">
+              <div class="contact-link-icon">🐙</div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">GITHUB</div>
+                <div class="contact-link-value">github.com/your-github</div>
+              </div>
+              <div class="contact-link-arrow">→</div>
+            </a>
+
+            <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="contact-link-item">
+              <div class="contact-link-icon">💼</div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">LINKEDIN</div>
+                <div class="contact-link-value">linkedin.com/in/your-linkedin</div>
+              </div>
+              <div class="contact-link-arrow">→</div>
+            </a>
+
+            <a href="https://your-blog.com" target="_blank" class="contact-link-item">
+              <div class="contact-link-icon">✍️</div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">BLOG</div>
+                <div class="contact-link-value">your-blog.com</div>
+              </div>
+              <div class="contact-link-arrow">→</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form fade-up">
+          <h3>메시지 보내기 <span style="font-size:0.8rem;color:var(--text-muted);font-weight:400;">Send a Message</span></h3>
+          <form onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label>이름 / Name</label>
+              <input type="text" placeholder="홍길동" required />
+            </div>
+            <div class="form-group">
+              <label>이메일 / Email</label>
+              <input type="email" placeholder="example@email.com" required />
+            </div>
+            <div class="form-group">
+              <label>제목 / Subject</label>
+              <input type="text" placeholder="협업 제안 / 채용 문의" />
+            </div>
+            <div class="form-group">
+              <label>내용 / Message</label>
+              <textarea placeholder="안녕하세요. 협업과 관련하여 연락드립니다..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">메시지 보내기 →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-name">K<span>.</span>Portfolio</div>
+      <p class="footer-copy">© 2026 김순하.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ----- Navbar scroll effect -----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+      updateActiveNav();
+    });
+
+    // ----- Mobile menu -----
+    // ----- Career tabs -----
+    function switchCareerTab(e, panelId) {
+      // 경력 탭 버튼들만 초기화 (경험 탭과 분리)
+      e.currentTarget.closest('.exp-tabs').querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+      // 경력 패널들만 초기화
+      ['career-tab-1', 'career-tab-2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+      e.currentTarget.classList.add('active');
+      const panel = document.getElementById(panelId);
+      panel.classList.add('active');
+      panel.querySelectorAll('.career-item').forEach((item, i) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, i * 80);
+      });
+    }
+
+    // ----- Experience tabs -----
+    function switchTab(e, panelId) {
+      document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.exp-panel').forEach(p => { p.classList.remove('active'); });
+      e.currentTarget.classList.add('active');
+      const panel = document.getElementById(panelId);
+      panel.classList.add('active');
+      // 탭 전환 시 fade-up 재실행
+      panel.querySelectorAll('.exp-card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, i * 60);
+      });
+    }
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // ----- Active nav link -----
+    function updateActiveNav() {
+      const sections = document.querySelectorAll('section[id]');
+      const links = document.querySelectorAll('.nav-links a');
+      let current = '';
+
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) {
+          current = sec.id;
+        }
+      });
+
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // ----- Fade-up on scroll -----
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // stagger delay for sibling cards
+          const siblings = entry.target.parentElement.querySelectorAll('.fade-up');
+          let delay = 0;
+          siblings.forEach((sib, idx) => {
+            if (sib === entry.target) delay = idx * 80;
+          });
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ----- Skill bars animation -----
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-item').forEach((item, i) => {
+            const level = item.dataset.level || 50;
+            setTimeout(() => {
+              item.querySelector('.skill-bar-fill').style.width = level + '%';
+            }, i * 80);
+          });
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('#skills .fade-up').forEach(el => skillObserver.observe(el));
+
+    // ----- Contact form -----
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = '전송 완료! ✓';
+      btn.style.background = '#22c55e';
+      setTimeout(() => {
+        btn.textContent = '메시지 보내기 →';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    }
+
+    // ----- Typing effect for hero -----
+    const roles = ['Data Analysis Developer', 'ML Engineer', 'ROK Army 1st Lieutenant'];
+    let roleIdx = 0, charIdx = 0, isDeleting = false;
+    const roleEl = document.querySelector('.hero-title');
+    const baseName = '김순하 · ';
+
+    function typeRole() {
+      const current = roles[roleIdx];
+      if (!isDeleting) {
+        roleEl.textContent = baseName + current.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === current.length) {
+          isDeleting = true;
+          setTimeout(typeRole, 2000);
+          return;
+        }
+      } else {
+        roleEl.textContent = baseName + current.substring(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+        }
+      }
+      setTimeout(typeRole, isDeleting ? 60 : 100);
+    }
+
+    typeRole();
+  </script>
+
+</body>
+
+</html>
