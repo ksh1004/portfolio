@@ -11,7 +11,10 @@
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
   <style>
-    /* ===== RESET & BASE ===== */
+    /* ===== RESET & BASE =====
+       모든 요소의 기본 여백(margin, padding)을 0으로 초기화하고,
+       박스 크기 계산 방식을 border-box(테두리 포함)로 통일합니다.
+       이렇게 하면 브라우저마다 다른 기본 스타일 차이를 없앨 수 있습니다. */
     *,
     *::before,
     *::after {
@@ -20,28 +23,49 @@
       padding: 0;
     }
 
+    /* :root — 전체 사이트에서 공통으로 쓰는 색상·크기 변수 모음
+       var(--변수명) 형태로 어디서든 불러다 쓸 수 있습니다.
+       색상을 바꾸고 싶다면 여기서만 수정하면 전체에 반영됩니다. */
     :root {
       --bg-primary: #0d0f14;
+      /* 가장 어두운 배경색 (짝수 섹션) */
       --bg-secondary: #13161e;
+      /* 두 번째 배경색 (홀수 섹션) */
       --bg-card: #1a1e29;
+      /* 카드 배경색 */
       --bg-card-hover: #1f2434;
+      /* 카드 hover 시 배경색 */
       --accent: #f97316;
+      /* 주요 포인트 색상 (오렌지) */
       --accent-dim: #c2601a;
+      /* 포인트 색상 어두운 버전 (hover용) */
       --accent-glow: rgba(249, 115, 22, 0.15);
+      /* 포인트 색상 반투명 (배경 글로우) */
       --blue: #3b82f6;
+      /* 보조 포인트 색상 (파랑) */
       --blue-dim: #1d4ed8;
+      /* 파랑 어두운 버전 */
       --text-primary: #f1f5f9;
+      /* 기본 텍스트 색상 (밝은 흰색) */
       --text-secondary: #94a3b8;
+      /* 보조 텍스트 색상 (회색) */
       --text-muted: #475569;
+      /* 흐린 텍스트 색상 (더 어두운 회색) */
       --border: #2a2f3e;
+      /* 기본 테두리 색상 */
       --border-bright: #3a4054;
+      /* 밝은 테두리 색상 */
       --nav-h: 70px;
+      /* 네비게이션 바 높이 */
     }
 
+    /* 링크 클릭 시 해당 섹션으로 부드럽게 스크롤 이동 */
     html {
       scroll-behavior: smooth;
     }
 
+    /* 전체 페이지 기본 스타일
+       overflow-x: hidden — 가로 스크롤바가 생기지 않게 막습니다 */
     body {
       font-family: 'Noto Sans KR', 'Roboto', sans-serif;
       background: var(--bg-primary);
@@ -50,35 +74,46 @@
       overflow-x: hidden;
     }
 
+    /* 텍스트 드래그(선택) 시 오렌지 배경으로 표시 */
     ::selection {
       background: var(--accent);
       color: #fff;
     }
 
+    /* 링크 기본 스타일 제거 (밑줄 없애고 부모 색상 상속) */
     a {
       text-decoration: none;
       color: inherit;
     }
 
+    /* 목록 기호(점, 숫자) 제거 */
     ul {
       list-style: none;
     }
 
-    /* ===== SCROLLBAR ===== */
+    /* ===== SCROLLBAR =====
+       브라우저 기본 스크롤바를 커스텀하여 디자인에 맞게 꾸밉니다.
+       (Chrome, Safari 계열에서만 적용됩니다) */
     ::-webkit-scrollbar {
       width: 6px;
+      /* 스크롤바 너비 */
     }
 
     ::-webkit-scrollbar-track {
       background: var(--bg-primary);
+      /* 스크롤바 배경 트랙 */
     }
 
     ::-webkit-scrollbar-thumb {
       background: var(--accent-dim);
+      /* 스크롤바 손잡이 색상 */
       border-radius: 3px;
     }
 
-    /* ===== NAVBAR ===== */
+    /* ===== NAVBAR =====
+       화면 상단에 고정되는 네비게이션 바입니다.
+       position: fixed — 스크롤해도 항상 화면 상단에 붙어있습니다.
+       backdrop-filter: blur — 배경을 흐릿하게 만드는 반투명 유리 효과 */
     #navbar {
       position: fixed;
       top: 0;
@@ -86,9 +121,12 @@
       right: 0;
       height: var(--nav-h);
       background: rgba(13, 15, 20, 0.85);
+      /* 85% 불투명도 */
       backdrop-filter: blur(12px);
+      /* 배경 블러 효과 */
       border-bottom: 1px solid var(--border);
       z-index: 1000;
+      /* 다른 요소 위에 항상 표시 */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -96,27 +134,33 @@
       transition: all 0.3s;
     }
 
+    /* 스크롤을 내리면 JS가 'scrolled' 클래스를 추가해서
+       배경을 더 불투명하게 바꿉니다 */
     #navbar.scrolled {
       background: rgba(13, 15, 20, 0.97);
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
     }
 
+    /* 네비바 왼쪽 로고 텍스트 스타일 */
     .nav-logo {
       font-size: 1.4rem;
       font-weight: 900;
       letter-spacing: -0.5px;
     }
 
+    /* 로고 안의 점(.) 을 오렌지색으로 강조 */
     .nav-logo span {
       color: var(--accent);
     }
 
+    /* 네비바 오른쪽 메뉴 링크들을 가로로 나열 */
     .nav-links {
       display: flex;
       gap: 2rem;
       align-items: center;
     }
 
+    /* 각 메뉴 링크 기본 스타일 */
     .nav-links a {
       font-size: 0.85rem;
       font-weight: 500;
@@ -124,29 +168,37 @@
       letter-spacing: 0.04em;
       transition: color 0.2s;
       position: relative;
+      /* ::after 가상 요소의 기준점 */
     }
 
+    /* 메뉴 링크 아래에 오렌지 밑줄 효과를 만드는 가상 요소
+       평상시 width: 0 (보이지 않음), hover 시 width: 100% (보임) */
     .nav-links a::after {
       content: '';
       position: absolute;
       bottom: -4px;
       left: 0;
       width: 0;
+      /* 기본 상태: 숨겨짐 */
       height: 2px;
       background: var(--accent);
       transition: width 0.3s;
+      /* 밑줄이 슥 펼쳐지는 애니메이션 */
     }
 
+    /* hover 또는 현재 섹션에 해당하는 링크를 오렌지색으로 강조 */
     .nav-links a:hover,
     .nav-links a.active {
       color: var(--accent);
     }
 
+    /* hover/active 시 밑줄을 전체 너비로 펼침 */
     .nav-links a:hover::after,
     .nav-links a.active::after {
       width: 100%;
     }
 
+    /* '연락하기' 버튼은 다른 링크와 다르게 오렌지 배경 버튼으로 표시 */
     .nav-contact-btn {
       padding: 0.45rem 1.2rem;
       background: var(--accent);
@@ -161,10 +213,13 @@
       background: var(--accent-dim) !important;
     }
 
+    /* 연락하기 버튼은 밑줄 효과 사용 안 함 */
     .nav-contact-btn::after {
       display: none !important;
     }
 
+    /* 모바일용 햄버거 메뉴 버튼 (≡ 모양)
+       기본적으로 숨겨져 있다가 화면이 좁아지면 표시됩니다 */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -173,6 +228,7 @@
       padding: 4px;
     }
 
+    /* 햄버거 버튼의 가로줄 3개 */
     .hamburger span {
       display: block;
       width: 24px;
@@ -181,26 +237,34 @@
       transition: all 0.3s;
     }
 
-    /* ===== SECTIONS COMMON ===== */
+    /* ===== SECTIONS COMMON =====
+       모든 섹션에 공통으로 적용되는 기본 여백 및 스타일 */
     section {
       padding: 100px 5%;
+      /* 위아래 100px, 좌우 5% 여백 */
       position: relative;
     }
 
+    /* 각 섹션 상단의 제목 영역 */
     .section-header {
       margin-bottom: 60px;
       position: relative;
     }
 
+    /* 섹션 제목 위에 있는 작은 영문 라벨 (예: "Academic Background") */
     .section-label {
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.2em;
+      /* 글자 간격을 넓혀 시각적 강조 */
       color: var(--accent);
       text-transform: uppercase;
+      /* 소문자도 대문자로 표시 */
       margin-bottom: 8px;
     }
 
+    /* 섹션 큰 제목 스타일
+       clamp(최솟값, 기준값, 최댓값) — 화면 크기에 따라 글자 크기 자동 조절 */
     .section-title {
       font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 900;
@@ -208,10 +272,12 @@
       line-height: 1.2;
     }
 
+    /* 섹션 제목의 한국어 부분 */
     .section-title .ko {
       color: var(--text-primary);
     }
 
+    /* 섹션 제목의 영어 병기 부분 (예: EDUCATION) — 더 작고 흐리게 표시 */
     .section-title .en {
       color: var(--text-muted);
       font-size: 0.55em;
@@ -221,6 +287,7 @@
       vertical-align: middle;
     }
 
+    /* 섹션 제목 아래 오렌지 → 투명 그라데이션 구분선 */
     .section-divider {
       width: 48px;
       height: 3px;
@@ -228,35 +295,48 @@
       margin-top: 16px;
     }
 
+    /* 콘텐츠 최대 너비를 1100px로 제한하고 가운데 정렬
+       화면이 아무리 넓어도 내용이 너무 퍼지지 않게 합니다 */
     .container {
       max-width: 1100px;
       margin: 0 auto;
     }
 
-    /* ===== FADE-IN ANIMATION ===== */
+    /* ===== FADE-IN ANIMATION =====
+       스크롤 시 요소가 아래에서 위로 떠오르는 애니메이션입니다.
+       초기 상태: 투명(opacity: 0) + 30px 아래로 내려가 있음
+       JS의 IntersectionObserver가 화면에 들어오면 'visible' 클래스를 추가해
+       원래 위치로 부드럽게 이동합니다 */
     .fade-up {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
+    /* 화면에 진입하면 JS가 이 클래스를 추가 → 자연스럽게 나타남 */
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* ===== HERO ===== */
+    /* ===== HERO =====
+       첫 화면 전체를 채우는 인트로 섹션입니다.
+       radial-gradient — 원형 빛 번짐 효과로 배경에 은은한 오렌지·파랑 빛을 추가합니다 */
     #hero {
       min-height: 100vh;
+      /* 화면 전체 높이를 채움 */
       display: flex;
       align-items: center;
       padding-top: calc(var(--nav-h) + 40px);
+      /* 네비바 높이만큼 위에서 밀어냄 */
       background:
         radial-gradient(ellipse 80% 60% at 60% 40%, rgba(249, 115, 22, 0.08) 0%, transparent 60%),
         radial-gradient(ellipse 60% 80% at 10% 80%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
         var(--bg-primary);
     }
 
+    /* 히어로 내부를 왼쪽(텍스트)과 오른쪽(카드) 2열로 나눔
+       1fr — 나머지 공간을 모두 차지, 380px — 오른쪽 카드 고정 너비 */
     .hero-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -266,6 +346,8 @@
       align-items: center;
     }
 
+    /* 이름 위에 있는 직함 뱃지 (예: "데이터 분석가")
+       display: inline-flex — 내용물 크기에 맞게 너비 자동 조절 */
     .hero-tag {
       display: inline-flex;
       align-items: center;
@@ -281,6 +363,7 @@
       margin-bottom: 24px;
     }
 
+    /* 뱃지 왼쪽의 깜빡이는 주황 점 (::before = 실제 HTML 없이 CSS로 만든 가상 요소) */
     .hero-tag::before {
       content: '';
       width: 6px;
@@ -288,8 +371,10 @@
       background: var(--accent);
       border-radius: 50%;
       animation: blink 1.5s infinite;
+      /* blink 애니메이션 무한 반복 */
     }
 
+    /* 깜빡임 애니메이션: 투명 → 불투명 → 투명 반복 */
     @keyframes blink {
 
       0%,
@@ -302,18 +387,22 @@
       }
     }
 
+    /* 메인 이름 텍스트 (큰 제목) */
     .hero-name {
       font-size: clamp(2.4rem, 5vw, 3.8rem);
+      /* 화면 크기에 따라 자동 조절 */
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1.15;
       margin-bottom: 12px;
     }
 
+    /* 이름 중 강조 부분 (오렌지색) */
     .hero-name .accent {
       color: var(--accent);
     }
 
+    /* 이름 아래 직함/타이핑 텍스트 */
     .hero-title {
       font-size: clamp(1rem, 2vw, 1.3rem);
       color: var(--text-secondary);
@@ -321,6 +410,7 @@
       margin-bottom: 20px;
     }
 
+    /* 자기소개 한 줄 설명 텍스트 */
     .hero-desc {
       font-size: 0.95rem;
       color: var(--text-secondary);
@@ -329,12 +419,15 @@
       margin-bottom: 36px;
     }
 
+    /* 버튼 두 개를 가로로 나열 */
     .hero-btns {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
+      /* 화면이 좁으면 줄바꿈 */
     }
 
+    /* 오렌지 채운 버튼 (주요 행동 유도) */
     .btn-primary {
       padding: 0.8rem 2rem;
       background: var(--accent);
@@ -347,11 +440,13 @@
       cursor: pointer;
     }
 
+    /* hover 시 위로 살짝 들리는 효과 */
     .btn-primary:hover {
       background: var(--accent-dim);
       transform: translateY(-2px);
     }
 
+    /* 테두리만 있는 투명 버튼 (보조 행동 유도) */
     .btn-outline {
       padding: 0.8rem 2rem;
       background: transparent;
@@ -370,7 +465,8 @@
       transform: translateY(-2px);
     }
 
-    /* Hero Card */
+    /* 히어로 오른쪽 프로필 카드
+       ::before — 카드 상단에 오렌지→파랑 그라데이션 줄을 추가합니다 */
     .hero-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -390,11 +486,13 @@
       background: linear-gradient(90deg, var(--accent), var(--blue));
     }
 
+    /* 카드 상단 원형 아바타 이미지 영역 */
     .hero-avatar {
       width: 80px;
       height: 80px;
       background: linear-gradient(135deg, var(--accent), var(--blue));
       border-radius: 50%;
+      /* 원형 */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -416,6 +514,7 @@
       margin-bottom: 20px;
     }
 
+    /* 카드 하단 통계 수치 2×2 그리드 */
     .hero-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -443,6 +542,8 @@
       margin-top: 4px;
     }
 
+    /* 화면 하단 중앙의 "SCROLL ↓" 힌트
+       translateX(-50%) — 정확히 가운데 정렬하는 트릭 */
     .hero-scroll-hint {
       position: absolute;
       bottom: 40px;
@@ -458,6 +559,7 @@
       animation: bounce 2s infinite;
     }
 
+    /* 화살표 모양: 정사각형을 45도 회전해서 꺾인 화살표처럼 보이게 함 */
     .hero-scroll-hint .arrow {
       width: 20px;
       height: 20px;
@@ -466,6 +568,7 @@
       transform: rotate(45deg);
     }
 
+    /* 위아래로 통통 튀는 애니메이션 */
     @keyframes bounce {
 
       0%,
@@ -478,17 +581,20 @@
       }
     }
 
-    /* ===== SUMMARY ===== */
+    /* ===== SUMMARY =====
+       역량을 요약한 카드 4개를 2열 그리드로 배치합니다 */
     #summary {
       background: var(--bg-secondary);
     }
 
+    /* 2열 그리드 레이아웃 */
     .summary-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
 
+    /* 카드 hover 시 위로 4px 들리고 테두리가 오렌지로 바뀜 */
     .summary-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -502,6 +608,7 @@
       transform: translateY(-4px);
     }
 
+    /* 카드 상단 이모지 아이콘을 담는 정사각형 박스 */
     .summary-card-icon {
       width: 44px;
       height: 44px;
@@ -528,16 +635,20 @@
       line-height: 1.7;
     }
 
-    /* ===== EDUCATION ===== */
+    /* ===== EDUCATION =====
+       학력을 세로 타임라인 형태로 표시합니다.
+       왼쪽에 세로선이 있고, 각 항목 옆에 주황 원형 점이 붙습니다 */
     #education {
       background: var(--bg-primary);
     }
 
+    /* 타임라인 전체 영역 — 왼쪽에 세로선을 위한 공간 확보 */
     .timeline {
       position: relative;
       padding-left: 32px;
     }
 
+    /* 타임라인 왼쪽 세로 그라데이션 선 (::before = CSS 가상 요소) */
     .timeline::before {
       content: '';
       position: absolute;
@@ -553,6 +664,8 @@
       margin-bottom: 40px;
     }
 
+    /* 각 항목 옆 주황 원형 점
+       box-shadow로 점 주변에 배경색 링 → 오렌지 글로우 링 효과를 냅니다 */
     .timeline-item::before {
       content: '';
       position: absolute;
@@ -591,6 +704,7 @@
       line-height: 1.7;
     }
 
+    /* 학점 등을 표시하는 작은 뱃지 태그 */
     .timeline-badge {
       display: inline-block;
       padding: 3px 10px;
@@ -603,11 +717,14 @@
       margin-top: 8px;
     }
 
-    /* ===== EXPERIENCE ===== */
+    /* ===== EXPERIENCE =====
+       경험 섹션 — 탭(활동/교육수료/대외활동)을 클릭하면
+       해당 패널만 표시되는 탭 UI 구조입니다 */
     #experience {
       background: var(--bg-primary);
     }
 
+    /* 탭 버튼들을 가로로 나열 */
     .exp-tabs {
       display: flex;
       gap: 8px;
@@ -615,6 +732,7 @@
       flex-wrap: wrap;
     }
 
+    /* 각 탭 버튼 기본 스타일 (선택되지 않은 상태) */
     .exp-tab {
       padding: 8px 20px;
       border-radius: 20px;
@@ -634,26 +752,32 @@
       color: var(--accent);
     }
 
+    /* 선택된(active) 탭 버튼 — 오렌지 배경으로 강조 */
     .exp-tab.active {
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
     }
 
+    /* 탭 패널 기본: 숨김 상태 */
     .exp-panel {
       display: none;
     }
 
+    /* 선택된 탭 패널만 표시 */
     .exp-panel.active {
       display: block;
     }
 
+    /* 경험 카드들을 반응형 그리드로 배치
+       auto-fill + minmax: 카드가 최소 300px 너비를 유지하면서 자동으로 열 수 조절 */
     .exp-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 18px;
     }
 
+    /* 경험 카드 — 왼쪽 아이콘 + 오른쪽 텍스트 가로 배치 */
     .exp-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -670,6 +794,8 @@
       transform: translateY(-3px);
     }
 
+    /* 카드 왼쪽 이모지 아이콘 박스
+       flex-shrink: 0 — 텍스트가 길어도 아이콘 크기가 줄어들지 않게 고정 */
     .exp-card-icon {
       width: 42px;
       height: 42px;
@@ -683,6 +809,7 @@
       flex-shrink: 0;
     }
 
+    /* 카드 오른쪽 텍스트 영역 — flex: 1 로 남은 공간 모두 차지 */
     .exp-card-body {
       flex: 1;
     }
@@ -714,11 +841,14 @@
       line-height: 1.65;
     }
 
-    /* ===== CAREER ===== */
+    /* ===== CAREER =====
+       경력 섹션 — 회사별 탭으로 나뉘며, 각 탭에 상세 경력 카드가 들어갑니다.
+       career-item은 왼쪽(기간/회사)과 오른쪽(역할/상세)을 2열 그리드로 나눕니다 */
     #career {
       background: var(--bg-secondary);
     }
 
+    /* 경력 카드 — 왼쪽 180px 고정(기간), 오른쪽 나머지(상세내용) */
     .career-item {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -736,6 +866,7 @@
       border-color: var(--border-bright);
     }
 
+    /* 왼쪽 열: 기간 + 회사명 */
     .career-left {}
 
     .career-period {
@@ -751,6 +882,7 @@
       color: var(--text-secondary);
     }
 
+    /* 오른쪽 열: 직책 + 팀 + 업무 설명 + 기술 태그 */
     .career-right {}
 
     .career-role {
@@ -771,6 +903,7 @@
       line-height: 1.75;
     }
 
+    /* 기술 태그들을 가로로 나열 (넘치면 줄바꿈) */
     .career-tags {
       display: flex;
       flex-wrap: wrap;
@@ -778,6 +911,7 @@
       margin-top: 14px;
     }
 
+    /* 개별 기술 태그 스타일 (Python, SQL 등) */
     .tag {
       display: inline-block;
       padding: 4px 12px;
@@ -789,17 +923,22 @@
       font-weight: 500;
     }
 
-    /* ===== CERTIFICATION ===== */
+    /* ===== CERTIFICATION (자격증 섹션) ===== */
+    /* 자격증 섹션 배경색 설정 */
     #certification {
       background: var(--bg-primary);
     }
 
+    /* 자격증 카드들을 격자(Grid) 형태로 배치 */
+    /* auto-fill: 공간에 맞게 열 수를 자동으로 조절, minmax: 최소 280px ~ 최대 1fr */
     .cert-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 20px;
     }
 
+    /* 자격증 카드 개별 스타일 */
+    /* flex로 아이콘과 텍스트를 가로로 나란히 배치 */
     .cert-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -811,11 +950,13 @@
       transition: border-color 0.2s, transform 0.2s;
     }
 
+    /* 카드 호버 시: 오렌지 테두리 + 살짝 위로 이동 */
     .cert-card:hover {
       border-color: var(--accent);
       transform: translateY(-3px);
     }
 
+    /* 자격증 아이콘 박스 (이모지 담는 네모 박스) */
     .cert-icon {
       width: 44px;
       height: 44px;
@@ -827,19 +968,23 @@
       justify-content: center;
       font-size: 1.2rem;
       flex-shrink: 0;
+      /* 부모 크기가 줄어도 아이콘 박스는 줄어들지 않음 */
     }
 
+    /* 자격증 이름 텍스트 */
     .cert-info h4 {
       font-size: 0.95rem;
       font-weight: 700;
       margin-bottom: 4px;
     }
 
+    /* 발급 기관 텍스트 */
     .cert-info p {
       font-size: 0.8rem;
       color: var(--text-secondary);
     }
 
+    /* 취득 날짜 텍스트 (오렌지 색으로 강조) */
     .cert-info .cert-date {
       font-size: 0.75rem;
       color: var(--accent);
@@ -847,15 +992,19 @@
       margin-top: 6px;
     }
 
-    /* ===== SKILLS ===== */
+    /* ===== SKILLS (기술 섹션) ===== */
+    /* 기술 섹션 배경색 */
     #skills {
       background: var(--bg-secondary);
     }
 
+    /* 기술 카테고리 그룹 (예: 언어, 분석 도구 등) */
     .skills-group {
       margin-bottom: 40px;
     }
 
+    /* 카테고리 제목 (예: LANGUAGES, TOOLS) */
+    /* text-transform: uppercase → 모두 대문자로 표시 */
     .skills-group-title {
       font-size: 0.8rem;
       font-weight: 700;
@@ -867,12 +1016,14 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* 기술 아이템들을 가로로 나열, 넘치면 다음 줄로 */
     .skills-list {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
 
+    /* 기술 카드 하나 (이름 + 게이지바 + 레벨 표시) */
     .skill-item {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -880,52 +1031,64 @@
       padding: 10px 16px;
       display: flex;
       flex-direction: column;
+      /* 세로로 쌓기: 이름 → 바 → 레벨 */
       gap: 6px;
       min-width: 120px;
       transition: border-color 0.2s, transform 0.2s;
     }
 
+    /* 호버 시 오렌지 테두리 + 위로 이동 */
     .skill-item:hover {
       border-color: var(--accent);
       transform: translateY(-2px);
     }
 
+    /* 기술 이름 텍스트 */
     .skill-name {
       font-size: 0.85rem;
       font-weight: 600;
     }
 
+    /* 숙련도 게이지 바 배경 (회색 트랙) */
     .skill-bar {
       height: 4px;
       background: var(--border);
       border-radius: 2px;
       overflow: hidden;
+      /* 채워지는 바가 트랙 밖으로 삐져나오지 않게 */
     }
 
+    /* 숙련도 게이지 채워지는 부분 (오렌지→파란색 그라데이션) */
+    /* 처음엔 width: 0%로 시작했다가 JS로 스크롤 감지 후 실제 값으로 애니메이션 */
     .skill-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--blue));
+      background: linear-gradient(90deg, var(--blue), var(--accent));
       border-radius: 2px;
       width: 0%;
       transition: width 1.2s ease;
     }
 
+    /* 숙련도 레벨 텍스트 (예: Intermediate) */
     .skill-level {
       font-size: 0.7rem;
       color: var(--text-muted);
     }
 
-    /* ===== AWARD ===== */
+    /* ===== AWARD (수상 섹션) ===== */
+    /* 수상 섹션 배경색 */
     #award {
       background: var(--bg-primary);
     }
 
+    /* 수상 카드들을 격자 형태로 배치 */
     .award-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 20px;
     }
 
+    /* 수상 카드 개별 스타일 */
+    /* position: relative → 왼쪽 컬러 라인(::before)을 카드 안에 위치시키기 위해 필요 */
     .award-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -933,14 +1096,17 @@
       padding: 24px;
       position: relative;
       overflow: hidden;
+      /* ::before 라인이 카드 밖으로 나가지 않게 */
       transition: border-color 0.2s, transform 0.2s;
     }
 
+    /* 호버 시 오렌지 테두리 + 위로 이동 */
     .award-card:hover {
       border-color: var(--accent);
       transform: translateY(-3px);
     }
 
+    /* 카드 왼쪽에 오렌지 세로 라인 장식 (::before 가상 요소) */
     .award-card::before {
       content: '';
       position: absolute;
@@ -951,6 +1117,7 @@
       background: linear-gradient(to bottom, var(--accent), transparent);
     }
 
+    /* 수상 등수/구분 텍스트 (예: 1st Place) */
     .award-rank {
       font-size: 0.72rem;
       font-weight: 700;
@@ -960,34 +1127,41 @@
       margin-bottom: 8px;
     }
 
+    /* 수상명 텍스트 */
     .award-name {
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 6px;
     }
 
+    /* 주최 기관명 텍스트 */
     .award-org {
       font-size: 0.83rem;
       color: var(--text-secondary);
       margin-bottom: 6px;
     }
 
+    /* 수상 날짜 텍스트 */
     .award-date {
       font-size: 0.75rem;
       color: var(--text-muted);
     }
 
-    /* ===== PROJECT ===== */
+    /* ===== PROJECT (프로젝트 섹션) ===== */
+    /* 프로젝트 섹션 배경색 */
     #project {
       background: var(--bg-secondary);
     }
 
+    /* 프로젝트 카드들을 격자 형태로 배치 */
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 24px;
     }
 
+    /* 프로젝트 카드 개별 스타일 */
+    /* overflow: hidden → 썸네일 이미지가 카드 모서리를 벗어나지 않게 */
     .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -996,11 +1170,13 @@
       transition: border-color 0.25s, transform 0.25s;
     }
 
+    /* 호버 시 오렌지 테두리 + 위로 이동 */
     .project-card:hover {
       border-color: var(--accent);
       transform: translateY(-5px);
     }
 
+    /* 프로젝트 썸네일 영역 (이모지 아이콘이 큼직하게 표시되는 부분) */
     .project-thumb {
       height: 160px;
       background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card-hover));
@@ -1013,9 +1189,12 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* 썸네일 배경에 흐릿하게 깔리는 큰 이모지 (장식용) */
+    /* opacity: 0.07 → 거의 안 보이게, 미묘한 텍스처 효과 */
     .project-thumb-bg {
       position: absolute;
       inset: 0;
+      /* top/right/bottom/left: 0 을 한번에 설정 */
       opacity: 0.07;
       font-size: 6rem;
       display: flex;
@@ -1023,6 +1202,8 @@
       justify-content: center;
     }
 
+    /* 프로젝트 유형 뱃지 (예: 팀 프로젝트, 개인) */
+    /* position: absolute → 썸네일 오른쪽 위에 띄워서 표시 */
     .project-type-badge {
       position: absolute;
       top: 12px;
@@ -1035,10 +1216,12 @@
       color: var(--text-secondary);
     }
 
+    /* 프로젝트 카드 본문 (썸네일 아래 텍스트 영역) */
     .project-body {
       padding: 24px;
     }
 
+    /* 프로젝트 기간 텍스트 */
     .project-period {
       font-size: 0.75rem;
       color: var(--accent);
@@ -1046,6 +1229,7 @@
       margin-bottom: 8px;
     }
 
+    /* 프로젝트 이름 */
     .project-name {
       font-size: 1.05rem;
       font-weight: 800;
@@ -1053,6 +1237,7 @@
       line-height: 1.3;
     }
 
+    /* 프로젝트 설명 */
     .project-desc {
       font-size: 0.85rem;
       color: var(--text-secondary);
@@ -1060,6 +1245,7 @@
       margin-bottom: 16px;
     }
 
+    /* 기술 태그 목록 컨테이너 */
     .project-tags {
       display: flex;
       flex-wrap: wrap;
@@ -1067,6 +1253,8 @@
       margin-bottom: 16px;
     }
 
+    /* 기술 태그 하나 (예: Python, SQL) */
+    /* 파란 계열 반투명 배경으로 기술스택임을 시각적으로 구분 */
     .project-tag {
       padding: 3px 10px;
       background: rgba(59, 130, 246, 0.1);
@@ -1077,11 +1265,13 @@
       font-weight: 500;
     }
 
+    /* GitHub / 데모 링크 버튼 묶음 */
     .project-links {
       display: flex;
       gap: 10px;
     }
 
+    /* 링크 버튼 개별 스타일 */
     .project-link {
       padding: 6px 14px;
       border: 1px solid var(--border-bright);
@@ -1094,23 +1284,280 @@
       gap: 5px;
     }
 
+    /* 링크 버튼 호버 시 오렌지 강조 */
     .project-link:hover {
       border-color: var(--accent);
       color: var(--accent);
     }
 
-    /* ===== CONTACT ===== */
+    /* ===== PROJECT MODAL (프로젝트 상세 팝업) ===== */
+    /* 화면 전체를 덮는 반투명 배경 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    /* 실제 팝업 박스 */
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.22s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* 상단 헤더 영역 (이모지 + 뱃지 + 제목) */
+    .modal-header {
+      padding: 32px 32px 0;
+      position: relative;
+    }
+
+    /* 닫기(X) 버튼 */
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.15s;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      background: var(--border);
+      color: var(--text-primary);
+    }
+
+    /* 이모지 + 뱃지 한 줄 */
+    .modal-header-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-emoji {
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .modal-type-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .modal-period-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    /* 프로젝트 제목 */
+    .modal-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .modal-title-en {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* 프로젝트 한 줄 목표 설명 */
+    .modal-goal {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding: 14px 16px;
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 0;
+    }
+
+    /* 팝업 본문 */
+    .modal-content {
+      padding: 24px 32px 32px;
+    }
+
+    /* 구분선 */
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    /* 소제목 레이블 */
+    .modal-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    /* 성과 지표 카드 3열 그리드 */
+    .modal-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .modal-metric-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .modal-metric-value {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .modal-metric-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* 역할 목록 */
+    .modal-roles {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 4px;
+    }
+
+    .modal-role-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .modal-role-item::before {
+      content: '▸';
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* 상세 설명 */
+    .modal-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    /* 태그 목록 */
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .modal-tag {
+      font-size: 0.75rem;
+      padding: 4px 11px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    /* 링크 버튼 */
+    .modal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .modal-link {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .modal-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--bg-secondary);
+    }
+
+    /* 카드에 커서 포인터 추가 */
+    .project-card {
+      cursor: pointer;
+    }
+
+    /* ===== CONTACT (연락처 섹션) ===== */
+    /* 연락처 섹션 배경색 */
     #contact {
       background: var(--bg-primary);
     }
 
+    /* 왼쪽(소개+링크)과 오른쪽(폼)을 2열로 나눠서 배치 */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       align-items: start;
+      /* 양쪽 높이가 달라도 위쪽 기준으로 정렬 */
     }
 
+    /* 연락처 소개 글 제목 */
     .contact-intro h3 {
       font-size: 1.6rem;
       font-weight: 800;
@@ -1118,10 +1565,12 @@
       margin-bottom: 16px;
     }
 
+    /* 제목 안의 강조 텍스트 (오렌지) */
     .contact-intro h3 span {
       color: var(--accent);
     }
 
+    /* 연락처 소개 문단 */
     .contact-intro p {
       font-size: 0.9rem;
       color: var(--text-secondary);
@@ -1129,12 +1578,15 @@
       margin-bottom: 32px;
     }
 
+    /* GitHub/LinkedIn/이메일 링크들을 세로로 나열 */
     .contact-links {
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
+    /* 링크 항목 하나 (아이콘 + 정보 + 화살표) */
+    /* 호버 시 오른쪽으로 살짝 이동하는 효과 */
     .contact-link-item {
       display: flex;
       align-items: center;
@@ -1146,11 +1598,13 @@
       transition: border-color 0.2s, transform 0.2s;
     }
 
+    /* 호버 시 오렌지 테두리 + 오른쪽 이동 */
     .contact-link-item:hover {
       border-color: var(--accent);
       transform: translateX(4px);
     }
 
+    /* 링크 아이콘 박스 */
     .contact-link-icon {
       width: 40px;
       height: 40px;
@@ -1163,28 +1617,32 @@
       flex-shrink: 0;
     }
 
+    /* 링크 텍스트 정보 영역 (flex: 1 → 남은 공간 모두 차지) */
     .contact-link-info {
       flex: 1;
     }
 
+    /* 링크 라벨 (예: GitHub, Email) */
     .contact-link-label {
       font-size: 0.72rem;
       color: var(--text-muted);
       margin-bottom: 2px;
     }
 
+    /* 링크 실제 값 (예: github.com/ksh1004) */
     .contact-link-value {
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-primary);
     }
 
+    /* 오른쪽 화살표 아이콘 */
     .contact-link-arrow {
       color: var(--text-muted);
       font-size: 0.9rem;
     }
 
-    /* Contact Form */
+    /* 연락처 폼 (메시지 보내기 박스) */
     .contact-form {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1192,16 +1650,19 @@
       padding: 36px;
     }
 
+    /* 폼 제목 */
     .contact-form h3 {
       font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 24px;
     }
 
+    /* 폼 입력 필드 하나씩 감싸는 그룹 */
     .form-group {
       margin-bottom: 18px;
     }
 
+    /* 입력 필드 라벨 (예: 이름, 이메일) */
     .form-group label {
       display: block;
       font-size: 0.8rem;
@@ -1211,6 +1672,7 @@
       letter-spacing: 0.03em;
     }
 
+    /* 텍스트 입력창과 텍스트에리어 공통 스타일 */
     .form-group input,
     .form-group textarea {
       width: 100%;
@@ -1223,18 +1685,22 @@
       font-size: 0.9rem;
       transition: border-color 0.2s;
       outline: none;
+      /* 브라우저 기본 포커스 외곽선 제거 */
     }
 
+    /* 포커스(클릭)했을 때 오렌지 테두리로 강조 */
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: var(--accent);
     }
 
+    /* 텍스트에리어 전용: 세로 크기 조절 가능, 최소 높이 설정 */
     .form-group textarea {
       resize: vertical;
       min-height: 120px;
     }
 
+    /* 전송 버튼 */
     .form-submit {
       width: 100%;
       padding: 13px;
@@ -1249,11 +1715,13 @@
       font-family: inherit;
     }
 
+    /* 버튼 호버 시 조금 더 어두운 오렌지로 */
     .form-submit:hover {
       background: var(--accent-dim);
     }
 
-    /* ===== FOOTER ===== */
+    /* ===== FOOTER (하단 푸터) ===== */
+    /* 페이지 맨 아래 저작권 표시 영역 */
     footer {
       background: var(--bg-secondary);
       border-top: 1px solid var(--border);
@@ -1261,32 +1729,42 @@
       text-align: center;
     }
 
+    /* 푸터 내부 콘텐츠 최대 너비 제한 + 가운데 정렬 */
     .footer-inner {
       max-width: 1100px;
       margin: 0 auto;
     }
 
+    /* 푸터 이름 텍스트 */
     .footer-name {
       font-size: 1.1rem;
       font-weight: 900;
       margin-bottom: 8px;
     }
 
+    /* 이름 중 강조 부분 (오렌지 색) */
     .footer-name span {
       color: var(--accent);
     }
 
+    /* 저작권 문구 (예: © 2025 김순하) */
     .footer-copy {
       font-size: 0.78rem;
       color: var(--text-muted);
     }
 
-    /* ===== MOBILE NAV ===== */
+    /* ===== 반응형 레이아웃 (모바일/태블릿 대응) ===== */
+
+    /* 화면 너비 900px 이하: 태블릿 및 작은 화면 */
     @media (max-width: 900px) {
+
+      /* 햄버거 버튼 표시 (기본은 숨겨져 있음) */
       .hamburger {
         display: flex;
       }
 
+      /* 네비게이션 메뉴를 화면 위쪽 밖으로 숨김 */
+      /* toggleMenu() 호출 시 .open 클래스가 붙으면서 아래로 펼쳐짐 */
       .nav-links {
         position: fixed;
         top: var(--nav-h);
@@ -1298,50 +1776,63 @@
         padding: 0;
         border-bottom: 1px solid var(--border);
         transform: translateY(-110%);
+        /* 화면 위로 숨기기 */
         transition: transform 0.3s;
       }
 
+      /* 메뉴가 열렸을 때: translateY(0)으로 원위치 → 아래로 펼쳐짐 */
       .nav-links.open {
         transform: translateY(0);
       }
 
+      /* 모바일 메뉴 각 링크 항목 */
       .nav-links a {
         padding: 16px 5%;
         border-bottom: 1px solid var(--border);
         width: 100%;
       }
 
+      /* 모바일에서는 링크 밑줄 애니메이션 숨김 */
       .nav-links a::after {
         display: none;
       }
 
+      /* 히어로 섹션: 2열 → 1열로 변경 */
       .hero-inner {
         grid-template-columns: 1fr;
       }
 
+      /* 히어로 오른쪽 카드는 모바일에서 숨김 */
       .hero-card {
         display: none;
       }
 
+      /* 요약 섹션: 2열 → 1열 */
       .summary-grid {
         grid-template-columns: 1fr;
       }
 
+      /* 경력 항목: 날짜와 내용을 1열로 */
       .career-item {
         grid-template-columns: 1fr;
         gap: 8px;
       }
 
+      /* 연락처: 왼쪽/오른쪽 → 위아래 1열로 */
       .contact-grid {
         grid-template-columns: 1fr;
       }
     }
 
+    /* 화면 너비 600px 이하: 스마트폰 */
     @media (max-width: 600px) {
+
+      /* 섹션 상하 패딩을 줄여서 화면 공간 절약 */
       section {
         padding: 70px 5%;
       }
 
+      /* 프로젝트 카드: 여러 열 → 1열로 */
       .project-grid {
         grid-template-columns: 1fr;
       }
@@ -1377,8 +1868,8 @@
         <h1 class="hero-name">안녕하십니까,<br /><span class="accent">데이터 분석가</span><br />김순하입니다.</h1>
         <p class="hero-title">김순하 · Data Analysis Developer</p>
         <p class="hero-desc">
-          데이터에서 인사이트를 발굴하고, 이를 실질적인 비즈니스 가치로 연결하는 것을 즐깁니다.
-          복잡한 데이터를 명확하고 이해하기 쉬운 형태로 전달하는 것이 저의 강점입니다.
+          데이터들 속에서 의미를 찾아 인사이트를 도출해내는 것이 저의 역할입니다.<br />
+          데이터 분석을 통해 세상을 조금 더 따뜻하고 이롭게 만들 수 있다고 믿습니다.
         </p>
         <div class="hero-btns">
           <a href="#project" class="btn-primary">프로젝트 보기</a>
@@ -1389,9 +1880,9 @@
       <div class="hero-card fade-up">
         <div class="hero-avatar">📊</div>
         <div class="hero-card-name">김순하</div>
-        <div class="hero-card-role">DATA ANALYSIS DEVELOPER</div>
+        <div class="hero-card-role">COMPUTER & DATA ENGINEER</div>
         <p style="font-size:0.83rem; color:var(--text-secondary); line-height:1.6;">
-          데이터 분석 · 머신러닝 · 시각화<br />비즈니스 인텔리전스 · 파이프라인 구축
+          데이터 분석 · 머신러닝 · 시각화<br />정보 수집 · 분석
         </p>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -1399,7 +1890,7 @@
             <div class="hero-stat-label">프로젝트</div>
           </div>
           <div class="hero-stat">
-            <div class="hero-stat-num">N<span style="font-size:0.8rem">년</span></div>
+            <div class="hero-stat-num">N<span style="font-size:0.8rem">Y</span></div>
             <div class="hero-stat-label">경력</div>
           </div>
           <div class="hero-stat">
@@ -1435,11 +1926,10 @@
       <div class="summary-grid">
         <div class="summary-card fade-up">
           <div class="summary-card-icon">🎯</div>
-          <h3>데이터 분석 전문성</h3>
+          <h3>데이터 분석</h3>
           <p>
-            대용량 데이터 처리 및 통계 분석을 통해 비즈니스 문제를 해결합니다.
+            데이터 처리 및 통계 분석을 통해 주어진 문제를 해결합니다.<br />
             데이터 기반의 의사결정 프로세스 구축 경험을 보유하고 있습니다.
-            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
           </p>
         </div>
         <div class="summary-card fade-up">
@@ -1448,25 +1938,22 @@
           <p>
             예측 모델 개발, 분류·회귀 문제 해결, 자연어 처리(NLP) 등 다양한
             머신러닝 프로젝트를 수행했습니다.
-            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
           </p>
         </div>
         <div class="summary-card fade-up">
           <div class="summary-card-icon">📈</div>
           <h3>데이터 시각화</h3>
           <p>
-            복잡한 분석 결과를 직관적인 대시보드와 리포트로 전달합니다.
-            Tableau, Power BI, Python 기반 시각화 도구를 활용합니다.
-            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+            복잡한 분석 결과를 직관적인 리포트로 전달합니다.<br />
+            Python 기반 시각화 도구 등을 활용합니다.
           </p>
         </div>
         <div class="summary-card fade-up">
-          <div class="summary-card-icon">🔧</div>
-          <h3>데이터 파이프라인</h3>
+          <div class="summary-card-icon">🪖</div>
+          <h3>국방 특화 인재</h3>
           <p>
-            ETL 파이프라인 설계 및 구축, 데이터 웨어하우스 관리,
-            자동화된 데이터 수집 시스템 개발 경험이 있습니다.
-            (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+            육군 정보병과 장교로서 임관 및 임무수행을 했습니다.<br />
+            특히 다양한 훈련 및 연습에 파견되어 풍부한 경험을 보유하고 있습니다.
           </p>
         </div>
       </div>
@@ -1489,7 +1976,7 @@
         <div class="timeline-item">
           <div class="timeline-date">2020.03 — 2024.02</div>
           <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
-            <img src="inha_univ.jpg" alt="인하대학교 로고"
+            <img src="assets/inha_univ.jpg" alt="인하대학교 로고"
               style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:8px; padding:4px; border:1px solid var(--border); flex-shrink:0;" />
             <div>
               <div class="timeline-title">인하대학교 <span
@@ -1502,13 +1989,12 @@
             [제1전공 : 컴퓨터공학]자료구조, 알고리즘, 선형대수, 기계학습 등 과목 이수<br />
             [제2전공 : 정치외교학]데이터사이언스로의 정치학 입문, 정치통계론 등 과목 이수
           </div>
-          <span class="timeline-badge">GPA 0.0 / 4.5</span>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-date">2016.03 — 2019.02</div>
           <div style="display:flex; align-items:center; gap:14px;">
-            <img src="bugil_highschool.jpg" alt="북일고등학교 로고"
+            <img src="assets/bugil_highschool.jpg" alt="북일고등학교 로고"
               style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:8px; padding:4px; border:1px solid var(--border); flex-shrink:0;" />
             <div>
               <div class="timeline-title">북일고등학교 <span
@@ -1543,8 +2029,8 @@
         <div class="career-item fade-up">
           <div class="career-left">
             <div class="career-period">2025.06 — 현재</div>
-            <div class="career-company">제7보병사단 8보병여단 1대대<span style="color:var(--text-muted); font-size:0.88em;">○○ Unit
-                ○○ Battalion</span></div>
+            <div class="career-company">제7보병사단 8보병여단 1대대<span style="color:var(--text-muted); font-size:0.88em;">ROK 7th
+                Infantry Division</span></div>
           </div>
           <div class="career-right">
             <div class="career-role">정보장교 · Intelligence Officer</div>
@@ -1580,9 +2066,8 @@
         <div class="career-item fade-up">
           <div class="career-left">
             <div class="career-period">2024.06 — 2025.06</div>
-            <div class="career-company">제7보병사단 8보병여단 1대대 <span style="color:var(--text-muted); font-size:0.88em;">○○
-                Unit ·
-                ○○ Battalion</span></div>
+            <div class="career-company">제7보병사단 8보병여단 1대대 <span style="color:var(--text-muted); font-size:0.88em;">ROK
+                7th Infantry Division</span></div>
           </div>
           <div class="career-right">
             <div class="career-role">소대장 · Platoon Leader</div>
@@ -1684,66 +2169,36 @@
       <div id="tab-edu" class="exp-panel fade-up">
         <div class="exp-grid">
           <div class="exp-card">
-            <div class="exp-card-icon">📚</div>
+            <div class="exp-card-icon">🖥️</div>
             <div class="exp-card-body">
-              <div class="exp-card-period">2023.07 — 2023.09</div>
-              <div class="exp-card-title">데이터 분석 부트캠프 수료</div>
-              <div class="exp-card-org">○○교육기관</div>
-              <div class="exp-card-desc">Python, SQL, 머신러닝 실습 중심 교육 과정 수료.<br />(예시 텍스트)</div>
+              <div class="exp-card-period">2023.06</div>
+              <div class="exp-card-title">2023 대학(원)생을 위한 사이버안보 아카데미</div>
+              <div class="exp-card-org">국가사이버안보센터</div>
+              <div class="exp-card-desc">사이버안보 아카데미</div>
             </div>
           </div>
           <div class="exp-card">
-            <div class="exp-card-icon">🎯</div>
+            <div class="exp-card-icon">🖥️</div>
             <div class="exp-card-body">
-              <div class="exp-card-period">2023.01 — 2023.03</div>
-              <div class="exp-card-title">SQL / 데이터베이스 심화 과정</div>
-              <div class="exp-card-org">○○플랫폼 (온라인)</div>
-              <div class="exp-card-desc">고급 쿼리, 성능 최적화, 데이터 모델링 수료.<br />(예시 텍스트)</div>
+              <div class="exp-card-title">파이썬 프로그래밍(입문, 중급)</div>
+              <div class="exp-card-org">인프런(온라인)</div>
+              <div class="exp-card-desc">파이썬 주요 문법 및 프로그래밍 교육</div>
             </div>
           </div>
           <div class="exp-card">
-            <div class="exp-card-icon">🤖</div>
+            <div class="exp-card-icon">💵</div>
             <div class="exp-card-body">
-              <div class="exp-card-period">2022.09 — 2022.12</div>
-              <div class="exp-card-title">딥러닝 특강 수료</div>
-              <div class="exp-card-org">○○대학교 / ○○기관</div>
-              <div class="exp-card-desc">CNN, RNN, Transformer 등 딥러닝 모델 이론 및 실습.<br />(예시 텍스트)</div>
+              <div class="exp-card-title">자금세탁방지 핵심요원(기초)</div>
+              <div class="exp-card-org">한국금융연수원(온라인)</div>
+              <div class="exp-card-desc">자금세탁방지 교육</div>
             </div>
           </div>
+
         </div>
       </div>
 
       <!-- 대외활동 -->
       <div id="tab-external" class="exp-panel fade-up">
-        <div class="exp-grid">
-          <div class="exp-card">
-            <div class="exp-card-icon">🏆</div>
-            <div class="exp-card-body">
-              <div class="exp-card-period">2024.01 — 2024.03</div>
-              <div class="exp-card-title">○○ 기업 서포터즈 N기</div>
-              <div class="exp-card-org">○○기업</div>
-              <div class="exp-card-desc">콘텐츠 제작 및 SNS 홍보 활동. 우수 서포터즈 선정.<br />(예시 텍스트)</div>
-            </div>
-          </div>
-          <div class="exp-card">
-            <div class="exp-card-icon">💡</div>
-            <div class="exp-card-body">
-              <div class="exp-card-period">2023.10 — 2023.11</div>
-              <div class="exp-card-title">○○ 해커톤 참가</div>
-              <div class="exp-card-org">주최: ○○기관</div>
-              <div class="exp-card-desc">48시간 데이터 분석 해커톤 참가. 팀 리더 역할 수행.<br />(예시 텍스트)</div>
-            </div>
-          </div>
-          <div class="exp-card">
-            <div class="exp-card-icon">🌐</div>
-            <div class="exp-card-body">
-              <div class="exp-card-period">2023.03 — 2023.06</div>
-              <div class="exp-card-title">데이터 멘토링 멘티 참가</div>
-              <div class="exp-card-org">○○멘토링 프로그램</div>
-              <div class="exp-card-desc">현직 데이터 분석가 멘토링 수료. 커리어 방향성 및 실무 역량 습득.<br />(예시 텍스트)</div>
-            </div>
-          </div>
-        </div>
       </div>
 
     </div>
@@ -1765,17 +2220,18 @@
         <div class="cert-card">
           <div class="cert-icon">📜</div>
           <div class="cert-info">
-            <h4>빅데이터분석기사</h4>
-            <p>한국데이터산업진흥원</p>
-            <div class="cert-date">2023.12 취득</div>
+            <h4>초경량비행장치(무인멀티콥터) 1종</h4>
+            <p>한국교통안전공단</p>
+            <div class="cert-date">2023.10</div>
           </div>
         </div>
+
         <div class="cert-card">
           <div class="cert-icon">📜</div>
           <div class="cert-info">
-            <h4>ADsP (데이터분석 준전문가)</h4>
+            <h4>빅데이터분석기사</h4>
             <p>한국데이터산업진흥원</p>
-            <div class="cert-date">2023.04 취득</div>
+            <div class="cert-date">2023.07</div>
           </div>
         </div>
         <div class="cert-card">
@@ -1783,19 +2239,27 @@
           <div class="cert-info">
             <h4>정보처리기사</h4>
             <p>한국산업인력공단</p>
-            <div class="cert-date">2022.11 취득</div>
+            <div class="cert-date">2023.06</div>
           </div>
         </div>
         <div class="cert-card">
           <div class="cert-icon">📜</div>
           <div class="cert-info">
-            <h4>자격증 예시 4</h4>
-            <p>발급 기관 (예시)</p>
-            <div class="cert-date">YYYY.MM 취득</div>
+            <h4>SQLD(SQL 개발자)</h4>
+            <p>한국데이터산업진흥원</p>
+            <div class="cert-date">2023.07</div>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <div class="cert-info">
+            <h4>ADsP(데이터분석 준전문가)</h4>
+            <p>한국데이터산업진흥원</p>
+            <div class="cert-date">2021.09</div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- ===== SKILLS ===== -->
@@ -1992,7 +2456,8 @@
 
       <div class="project-grid fade-up">
 
-        <div class="project-card">
+        <!-- 카드 클릭 시 openProjectModal('project-1') 호출 → 해당 ID의 데이터를 읽어 모달 표시 -->
+        <div class="project-card" onclick="openProjectModal('project-1')">
           <div class="project-thumb">
             <div class="project-thumb-bg">📊</div>
             📊
@@ -2013,14 +2478,10 @@
               <span class="project-tag">SHAP</span>
               <span class="project-tag">Pandas</span>
             </div>
-            <div class="project-links">
-              <a href="#" class="project-link">🔗 GitHub</a>
-              <a href="#" class="project-link">📄 발표자료</a>
-            </div>
           </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" onclick="openProjectModal('project-2')">
           <div class="project-thumb">
             <div class="project-thumb-bg">📈</div>
             📈
@@ -2041,14 +2502,10 @@
               <span class="project-tag">Airflow</span>
               <span class="project-tag">SQL</span>
             </div>
-            <div class="project-links">
-              <a href="#" class="project-link">🔗 GitHub</a>
-              <a href="#" class="project-link">🖥 Demo</a>
-            </div>
           </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" onclick="openProjectModal('project-3')">
           <div class="project-thumb">
             <div class="project-thumb-bg">🤖</div>
             🤖
@@ -2068,10 +2525,6 @@
               <span class="project-tag">PyTorch</span>
               <span class="project-tag">Hugging Face</span>
               <span class="project-tag">FastAPI</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link">🔗 GitHub</a>
-              <a href="#" class="project-link">📄 논문</a>
             </div>
           </div>
         </div>
@@ -2177,26 +2630,46 @@
 
   <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ----- Navbar scroll effect -----
+    // =============================================
+    // 포트폴리오 JavaScript
+    // 크게 6가지 기능으로 구성되어 있습니다:
+    // 1. 네비바 스크롤 효과
+    // 2. 경력 탭 전환
+    // 3. 경험 탭 전환
+    // 4. 모바일 햄버거 메뉴
+    // 5. 스크롤 페이드인 애니메이션
+    // 6. 스킬바 애니메이션
+    // 7. 메시지 폼 전송
+    // 8. 히어로 타이핑 효과
+    // =============================================
+
+    // ----- 1. 네비바 스크롤 효과 -----
+    // 페이지를 40px 이상 스크롤하면 네비바에 'scrolled' 클래스를 추가해
+    // 배경을 더 진하게 만들고 그림자를 추가합니다
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 40);
-      updateActiveNav();
+      updateActiveNav(); // 현재 보이는 섹션에 맞게 메뉴 활성화
     });
 
-    // ----- Mobile menu -----
-    // ----- Career tabs -----
+    // ----- 2. 경력 탭 전환 -----
+    // 회사별 탭 클릭 시 해당 회사 경력만 표시합니다
+    // e.currentTarget: 클릭된 탭 버튼 요소
+    // panelId: 표시할 패널의 id값
     function switchCareerTab(e, panelId) {
-      // 경력 탭 버튼들만 초기화 (경험 탭과 분리)
+      // 현재 경력 탭 영역의 모든 탭 버튼에서 active 제거
       e.currentTarget.closest('.exp-tabs').querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
-      // 경력 패널들만 초기화
+      // 모든 경력 패널 숨기기
       ['career-tab-1', 'career-tab-2'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.remove('active');
       });
+      // 클릭된 탭 버튼 활성화
       e.currentTarget.classList.add('active');
+      // 해당 패널 표시
       const panel = document.getElementById(panelId);
       panel.classList.add('active');
+      // 패널 안의 경력 카드들을 순서대로 페이드인 (i * 80ms 간격으로 지연)
       panel.querySelectorAll('.career-item').forEach((item, i) => {
         item.style.opacity = '0';
         item.style.transform = 'translateY(20px)';
@@ -2208,14 +2681,18 @@
       });
     }
 
-    // ----- Experience tabs -----
+    // ----- 3. 경험 탭 전환 -----
+    // 활동/교육수료/대외활동 탭 클릭 시 해당 패널을 표시합니다
     function switchTab(e, panelId) {
+      // 모든 탭 버튼에서 active 제거
       document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+      // 모든 패널 숨기기
       document.querySelectorAll('.exp-panel').forEach(p => { p.classList.remove('active'); });
+      // 클릭된 탭 활성화 및 패널 표시
       e.currentTarget.classList.add('active');
       const panel = document.getElementById(panelId);
       panel.classList.add('active');
-      // 탭 전환 시 fade-up 재실행
+      // 카드들을 순서대로 페이드인 (i * 60ms 간격)
       panel.querySelectorAll('.exp-card').forEach((card, i) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
@@ -2227,28 +2704,35 @@
       });
     }
 
+    // ----- 4. 모바일 햄버거 메뉴 -----
+    // 햄버거 버튼(≡) 클릭 시 네비 메뉴를 토글합니다
     function toggleMenu() {
       document.getElementById('navLinks').classList.toggle('open');
     }
 
+    // 메뉴 링크 클릭 시 메뉴 자동 닫기 (모바일)
     document.querySelectorAll('.nav-links a').forEach(a => {
       a.addEventListener('click', () => {
         document.getElementById('navLinks').classList.remove('open');
       });
     });
 
-    // ----- Active nav link -----
+    // ----- 5. 현재 섹션에 맞는 네비 링크 활성화 -----
+    // 스크롤 위치를 보고 현재 화면에 보이는 섹션을 판단해
+    // 해당 메뉴 링크에 'active' 클래스를 붙여 강조합니다
     function updateActiveNav() {
       const sections = document.querySelectorAll('section[id]');
       const links = document.querySelectorAll('.nav-links a');
       let current = '';
 
+      // 각 섹션의 상단 위치(offsetTop)와 스크롤 위치를 비교
       sections.forEach(sec => {
         if (window.scrollY >= sec.offsetTop - 120) {
-          current = sec.id;
+          current = sec.id; // 현재 보이는 섹션 id 갱신
         }
       });
 
+      // 해당 id와 일치하는 링크에 active 적용
       links.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -2257,35 +2741,41 @@
       });
     }
 
-    // ----- Fade-up on scroll -----
+    // ----- 6. 스크롤 페이드인 애니메이션 -----
+    // IntersectionObserver: 요소가 화면(뷰포트)에 들어오는 순간을 감지합니다
+    // threshold: 0.1 → 요소가 10%만 보여도 실행
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          // stagger delay for sibling cards
+          // 형제 요소 중 몇 번째인지 계산해서 지연 시간 부여 (순서대로 나타나는 효과)
           const siblings = entry.target.parentElement.querySelectorAll('.fade-up');
           let delay = 0;
           siblings.forEach((sib, idx) => {
             if (sib === entry.target) delay = idx * 80;
           });
           setTimeout(() => {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('visible'); // CSS의 .fade-up.visible 스타일 적용
           }, delay);
-          observer.unobserve(entry.target);
+          observer.unobserve(entry.target); // 한 번 실행 후 더 이상 감시 안 함
         }
       });
     }, { threshold: 0.1 });
 
+    // fade-up 클래스가 붙은 모든 요소를 감시 대상으로 등록
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ----- Skill bars animation -----
+    // ----- 7. 스킬바 채우기 애니메이션 -----
+    // 스킬 섹션이 화면에 들어오면 각 스킬 바를 data-level 값만큼 채웁니다
+    // data-level: HTML에서 <div class="skill-item" data-level="85"> 형태로 지정
     const skillObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.querySelectorAll('.skill-item').forEach((item, i) => {
-            const level = item.dataset.level || 50;
+            const level = item.dataset.level || 50; // data-level 값 읽기 (없으면 50)
             setTimeout(() => {
+              // 스킬 바의 너비를 0% → level% 로 늘림 (CSS transition으로 부드럽게)
               item.querySelector('.skill-bar-fill').style.width = level + '%';
-            }, i * 80);
+            }, i * 80); // 스킬마다 80ms씩 늦게 시작
           });
           skillObserver.unobserve(entry.target);
         }
@@ -2294,47 +2784,280 @@
 
     document.querySelectorAll('#skills .fade-up').forEach(el => skillObserver.observe(el));
 
-    // ----- Contact form -----
+    // ----- 8. 연락처 폼 전송 처리 -----
+    // 실제 서버 전송 없이 버튼 텍스트와 색상을 바꿔 전송된 것처럼 보여줍니다
+    // (실제 이메일 전송 기능을 원한다면 EmailJS 등 서비스 연동 필요)
     function handleFormSubmit(e) {
-      e.preventDefault();
+      e.preventDefault(); // 브라우저 기본 폼 제출 동작 막기
       const btn = e.target.querySelector('.form-submit');
       btn.textContent = '전송 완료! ✓';
-      btn.style.background = '#22c55e';
+      btn.style.background = '#22c55e'; // 초록색으로 변경
       setTimeout(() => {
+        // 3초 후 원래 상태로 복구
         btn.textContent = '메시지 보내기 →';
         btn.style.background = '';
-        e.target.reset();
+        e.target.reset(); // 입력 내용 초기화
       }, 3000);
     }
 
-    // ----- Typing effect for hero -----
+    // ----- 9. 히어로 타이핑 효과 -----
+    // 직함 텍스트를 한 글자씩 타이핑하고 지웠다가 다음 텍스트로 넘어갑니다
     const roles = ['Data Analysis Developer', 'ML Engineer', 'ROK Army 1st Lieutenant'];
-    let roleIdx = 0, charIdx = 0, isDeleting = false;
+    let roleIdx = 0;   // 현재 표시 중인 직함 인덱스
+    let charIdx = 0;   // 현재까지 타이핑된 글자 수
+    let isDeleting = false; // 지우는 중인지 여부
     const roleEl = document.querySelector('.hero-title');
     const baseName = '김순하 · ';
 
     function typeRole() {
       const current = roles[roleIdx];
       if (!isDeleting) {
+        // 타이핑 중: 글자 하나씩 추가
         roleEl.textContent = baseName + current.substring(0, charIdx + 1);
         charIdx++;
         if (charIdx === current.length) {
+          // 다 타이핑됐으면 2초 대기 후 삭제 시작
           isDeleting = true;
           setTimeout(typeRole, 2000);
           return;
         }
       } else {
+        // 삭제 중: 글자 하나씩 제거
         roleEl.textContent = baseName + current.substring(0, charIdx - 1);
         charIdx--;
         if (charIdx === 0) {
+          // 다 지워지면 다음 직함으로 넘어감 (% 연산으로 배열 순환)
           isDeleting = false;
           roleIdx = (roleIdx + 1) % roles.length;
         }
       }
+      // 삭제 시 60ms, 타이핑 시 100ms 간격으로 재귀 호출
       setTimeout(typeRole, isDeleting ? 60 : 100);
     }
 
-    typeRole();
+    typeRole(); // 타이핑 효과 시작
+  </script>
+
+  <!-- ===== PROJECT MODAL ===== -->
+  <div class="modal-overlay" id="projectModal" onclick="closeProjectModalOnOverlay(event)">
+    <div class="modal-box">
+
+      <!-- 헤더: 이모지 + 뱃지 + 제목 + 목표 한 줄 -->
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeProjectModal()">✕</button>
+        <div class="modal-header-top">
+          <span class="modal-emoji" id="modal-emoji">📊</span>
+          <span class="modal-type-badge" id="modal-badge">개인 프로젝트</span>
+          <span class="modal-period-badge" id="modal-period"></span>
+        </div>
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-title-en" id="modal-title-en"></div>
+        <!-- 왼쪽 오렌지 선 강조 한 줄 목표 -->
+        <div class="modal-goal" id="modal-goal"></div>
+      </div>
+
+      <!-- 본문 -->
+      <div class="modal-content">
+
+        <!-- 주요 성과 지표 카드 (없으면 자동 숨김) -->
+        <div id="modal-metrics-wrap">
+          <div class="modal-divider"></div>
+          <div class="modal-section-label">주요 성과</div>
+          <div class="modal-metrics" id="modal-metrics"></div>
+        </div>
+
+        <!-- 역할 및 기여 -->
+        <div class="modal-divider"></div>
+        <div class="modal-section-label">역할 및 기여</div>
+        <div class="modal-roles" id="modal-roles"></div>
+
+        <!-- 상세 설명 -->
+        <div class="modal-divider"></div>
+        <div class="modal-section-label">상세 설명</div>
+        <div class="modal-desc" id="modal-desc"></div>
+
+        <!-- 사용 기술 -->
+        <div class="modal-divider"></div>
+        <div class="modal-section-label">사용 기술</div>
+        <div class="modal-tags" id="modal-tags" style="margin-bottom:20px;"></div>
+
+        <!-- 링크 버튼 -->
+        <div class="modal-links" id="modal-links"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*
+     * 프로젝트 상세 데이터.
+     * 내용을 바꿀 때 이 객체만 수정하면 됩니다.
+     *
+     * metrics : 성과 지표 카드 배열 { value, label }. 비워두면 섹션 자동 숨김.
+     * roles   : 역할 항목 문자열 배열.
+     * desc    : 상세 설명 (줄바꿈 그대로 표시).
+     */
+    const PROJECT_DATA = {
+      'project-1': {
+        emoji: '📊',
+        badge: '개인 프로젝트',
+        period: '2024.03 — 2024.05',
+        title: '고객 이탈 예측 모델 개발',
+        titleEn: 'Customer Churn Prediction',
+        goal: '머신러닝 기반 고객 이탈 예측 모델을 개발하여 마케팅팀의 사전 대응을 지원합니다.',
+        metrics: [
+          { value: '00%', label: '예측 정확도\n(Accuracy)' },
+          { value: '약 50만 건', label: '학습\n데이터 규모' },
+          { value: 'Top 5', label: '주요 이탈 요인\nSHAP 도출' },
+        ],
+        roles: [
+          '데이터 수집 및 결측치 처리, 피처 엔지니어링',
+          'XGBoost 모델 학습 및 하이퍼파라미터 튜닝',
+          'SHAP 분석을 통한 모델 해석력 확보 및 마케팅팀 인사이트 전달',
+          '발표 자료 구성 및 제작',
+        ],
+        desc: `고객 데이터를 기반으로 이탈 가능성이 높은 고객을 사전에 파악하는 분류 모델을 개발했습니다.
+
+단순한 정확도 향상뿐 아니라 SHAP 값 분석을 통해 "왜 이 고객이 이탈할 가능성이 높은가"를 설명 가능한 형태로 제시하여, 마케팅팀이 실제 의사결정에 활용할 수 있도록 했습니다.
+
+(예시 텍스트 — 본인의 내용으로 교체해 주세요)`,
+        tags: ['Python', 'XGBoost', 'SHAP', 'Pandas', 'Scikit-learn'],
+        links: [
+          { label: '🔗 GitHub', href: '#' },
+          { label: '📄 발표자료', href: '#' },
+        ],
+      },
+      'project-2': {
+        emoji: '📈',
+        badge: '팀 프로젝트',
+        period: '2023.09 — 2023.12',
+        title: '실시간 매출 분석 대시보드',
+        titleEn: 'Real-time Sales Dashboard',
+        goal: '실시간 매출 데이터를 자동 수집·처리하여 경영진이 즉시 현황을 파악할 수 있는 대시보드를 구축합니다.',
+        metrics: [
+          { value: '일 1회', label: '자동 리포트\n생성 주기' },
+          { value: '3개 부서', label: '대시보드\n활용 부서' },
+          { value: '00%', label: '수동 작업\n절감률' },
+        ],
+        roles: [
+          'BigQuery 기반 데이터 웨어하우스 스키마 설계',
+          'Airflow DAG 작성으로 ETL 파이프라인 자동화',
+          'Tableau 대시보드 구축 및 시각화',
+          '팀 내 데이터 품질 검증 프로세스 수립',
+        ],
+        desc: `경영진이 매일 수동으로 확인하던 매출 현황을 자동화된 파이프라인과 시각화 대시보드로 대체했습니다.
+
+Airflow를 활용해 원천 데이터 수집부터 BigQuery 적재, Tableau 갱신까지 전 과정을 자동화했으며, 데이터 이상 감지 알림 기능도 추가했습니다.
+
+(예시 텍스트 — 본인의 내용으로 교체해 주세요)`,
+        tags: ['Tableau', 'BigQuery', 'Airflow', 'SQL', 'Python'],
+        links: [
+          { label: '🔗 GitHub', href: '#' },
+          { label: '🖥 Demo', href: '#' },
+        ],
+      },
+      'project-3': {
+        emoji: '🤖',
+        badge: '캡스톤 디자인',
+        period: '2023.03 — 2023.06',
+        title: '자연어 처리 기반 감성 분석',
+        titleEn: 'NLP Sentiment Analysis',
+        goal: '소셜미디어 데이터를 활용해 브랜드에 대한 긍/부정/중립 감성을 자동 분류하는 시스템을 구축합니다.',
+        metrics: [
+          { value: '00%', label: '3분류\n정확도' },
+          { value: '약 10만 건', label: '크롤링\n데이터 규모' },
+          { value: 'KoBERT', label: '파인튜닝\n베이스 모델' },
+        ],
+        roles: [
+          '트위터·인스타그램 크롤링 및 텍스트 전처리',
+          'KoBERT 모델 파인튜닝 (긍/부정/중립 3분류)',
+          'FastAPI 기반 REST API 서버 구축 및 배포',
+          '팀 발표 자료 제작 및 최종 발표 담당',
+        ],
+        desc: `한국어 소셜미디어 텍스트에 특화된 KoBERT를 파인튜닝하여 브랜드 감성 분석 모델을 개발했습니다.
+
+단순 분류를 넘어 FastAPI로 API 서버를 구축하여 실시간 감성 분석 서비스 형태로 배포했으며, 팀원들이 웹 인터페이스에서 직접 테스트할 수 있도록 간단한 UI도 제공했습니다.
+
+(예시 텍스트 — 본인의 내용으로 교체해 주세요)`,
+        tags: ['KoBERT', 'PyTorch', 'Hugging Face', 'FastAPI', 'Python'],
+        links: [
+          { label: '🔗 GitHub', href: '#' },
+          { label: '📄 논문', href: '#' },
+        ],
+      },
+    };
+
+    /* 모달 열기 */
+    function openProjectModal(projectId) {
+      const data = PROJECT_DATA[projectId];
+      if (!data) return;
+
+      // 헤더
+      document.getElementById('modal-emoji').textContent    = data.emoji;
+      document.getElementById('modal-badge').textContent    = data.badge;
+      document.getElementById('modal-period').textContent   = data.period;
+      document.getElementById('modal-title').textContent    = data.title;
+      document.getElementById('modal-title-en').textContent = data.titleEn;
+      document.getElementById('modal-goal').textContent     = data.goal;
+
+      // 성과 지표 카드 (없으면 섹션 숨김)
+      const metricsWrap = document.getElementById('modal-metrics-wrap');
+      const metricsEl   = document.getElementById('modal-metrics');
+      if (data.metrics && data.metrics.length > 0) {
+        metricsEl.innerHTML = data.metrics.map(m =>
+          `<div class="modal-metric-card">
+             <div class="modal-metric-value">${m.value}</div>
+             <div class="modal-metric-label">${m.label.replace(/\n/g, '<br>')}</div>
+           </div>`
+        ).join('');
+        metricsWrap.style.display = '';
+      } else {
+        metricsWrap.style.display = 'none';
+      }
+
+      // 역할 목록
+      document.getElementById('modal-roles').innerHTML = data.roles
+        .map(r => `<div class="modal-role-item">${r}</div>`)
+        .join('');
+
+      // 상세 설명
+      document.getElementById('modal-desc').textContent = data.desc;
+
+      // 태그
+      document.getElementById('modal-tags').innerHTML = data.tags
+        .map(t => `<span class="modal-tag">${t}</span>`)
+        .join('');
+
+      // 링크 버튼 (href '#'이면 클릭 비활성)
+      document.getElementById('modal-links').innerHTML = data.links
+        .map(l =>
+          `<a href="${l.href}" class="modal-link"
+              ${l.href === '#' ? 'onclick="return false"' : 'target="_blank" rel="noopener"'}>
+             ${l.label}
+           </a>`
+        ).join('');
+
+      document.getElementById('projectModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    /* 모달 닫기 */
+    function closeProjectModal() {
+      document.getElementById('projectModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* 오버레이 클릭 시 닫기 (박스 내부 클릭 제외) */
+    function closeProjectModalOnOverlay(event) {
+      if (event.target === document.getElementById('projectModal')) {
+        closeProjectModal();
+      }
+    }
+
+    /* ESC 키로 닫기 */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeProjectModal();
+    });
   </script>
 
 </body>
