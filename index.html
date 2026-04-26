@@ -2456,27 +2456,24 @@
 
       <div class="project-grid fade-up">
 
-        <!-- 카드 클릭 시 openProjectModal('project-1') 호출 → 해당 ID의 데이터를 읽어 모달 표시 -->
         <div class="project-card" onclick="openProjectModal('project-1')">
           <div class="project-thumb">
-            <div class="project-thumb-bg">📊</div>
-            📊
+            <div class="project-thumb-bg">🔍</div>
+            🔍
             <span class="project-type-badge">개인 프로젝트</span>
           </div>
           <div class="project-body">
             <div class="project-period">2024.03 — 2024.05</div>
-            <div class="project-name">고객 이탈 예측 모델 개발<br /><small
-                style="font-weight:400;color:var(--text-muted)">Customer Churn Prediction</small></div>
+            <div class="project-name">신용카드 이상거래 탐지<br /><small
+                style="font-weight:400;color:var(--text-muted)">Credit Card Fraud Detection</small></div>
             <div class="project-desc">
-              머신러닝 기반 고객 이탈 예측 모델을 개발하여 00% 정확도를 달성했습니다.
-              SHAP 분석을 통한 주요 이탈 요인 도출 및 마케팅팀에 인사이트 전달.
-              (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+              28만 건 거래 데이터에서 0.17%에 불과한 사기 거래를 탐지하는 불균형 이진 분류 프로젝트. 9개 모델을 비교 분석했습니다.
             </div>
             <div class="project-tags">
               <span class="project-tag">Python</span>
               <span class="project-tag">XGBoost</span>
-              <span class="project-tag">SHAP</span>
-              <span class="project-tag">Pandas</span>
+              <span class="project-tag">SMOTE</span>
+              <span class="project-tag">Scikit-learn</span>
             </div>
           </div>
         </div>
@@ -2485,46 +2482,20 @@
           <div class="project-thumb">
             <div class="project-thumb-bg">📈</div>
             📈
-            <span class="project-type-badge">팀 프로젝트</span>
+            <span class="project-type-badge">개인 프로젝트</span>
           </div>
           <div class="project-body">
-            <div class="project-period">2023.09 — 2023.12</div>
-            <div class="project-name">실시간 매출 분석 대시보드<br /><small
-                style="font-weight:400;color:var(--text-muted)">Real-time Sales Dashboard</small></div>
+            <div class="project-period">2025.01 — 2025.03</div>
+            <div class="project-name">KOSPI/KOSDAQ 주가 등락률 예측<br /><small
+                style="font-weight:400;color:var(--text-muted)">Stock Price Prediction</small></div>
             <div class="project-desc">
-              실시간 매출 데이터를 수집·처리하여 경영진용 대시보드를 구축했습니다.
-              Airflow를 이용한 자동화 파이프라인 구축으로 매일 리포트 자동 생성.
-              (예시 텍스트 — 본인의 내용으로 교체해 주세요)
+              국내 2,731개 종목 데이터로 5거래일 후 주가 등락률을 예측. 9개 ML/딥러닝 모델 비교 및 백테스팅 수행.
             </div>
             <div class="project-tags">
-              <span class="project-tag">Tableau</span>
-              <span class="project-tag">BigQuery</span>
-              <span class="project-tag">Airflow</span>
-              <span class="project-tag">SQL</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card" onclick="openProjectModal('project-3')">
-          <div class="project-thumb">
-            <div class="project-thumb-bg">🤖</div>
-            🤖
-            <span class="project-type-badge">캡스톤 디자인</span>
-          </div>
-          <div class="project-body">
-            <div class="project-period">2023.03 — 2023.06</div>
-            <div class="project-name">자연어 처리 기반 감성 분석<br /><small style="font-weight:400;color:var(--text-muted)">NLP
-                Sentiment Analysis</small></div>
-            <div class="project-desc">
-              소셜미디어 데이터를 활용한 브랜드 감성 분석 시스템을 구축했습니다.
-              BERT 기반 모델 파인튜닝으로 00% 분류 정확도 달성.
-              (예시 텍스트 — 본인의 내용으로 교체해 주세요)
-            </div>
-            <div class="project-tags">
-              <span class="project-tag">BERT</span>
-              <span class="project-tag">PyTorch</span>
-              <span class="project-tag">Hugging Face</span>
-              <span class="project-tag">FastAPI</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">LSTM</span>
+              <span class="project-tag">XGBoost</span>
+              <span class="project-tag">TensorFlow</span>
             </div>
           </div>
         </div>
@@ -2922,90 +2893,64 @@
      */
     const PROJECT_DATA = {
       'project-1': {
-        emoji: '📊',
+        emoji: '🔍',
         badge: '개인 프로젝트',
         period: '2024.03 — 2024.05',
-        title: '고객 이탈 예측 모델 개발',
-        titleEn: 'Customer Churn Prediction',
-        goal: '머신러닝 기반 고객 이탈 예측 모델을 개발하여 마케팅팀의 사전 대응을 지원합니다.',
+        title: '신용카드 이상거래 탐지',
+        titleEn: 'Credit Card Fraud Detection',
+        goal: '전체 거래의 0.17%에 불과한 사기 거래를 정확히 탐지하는 불균형 이진 분류 모델을 개발하고, 9개 알고리즘을 체계적으로 비교·분석합니다.',
         metrics: [
-          { value: '00%', label: '예측 정확도\n(Accuracy)' },
-          { value: '약 50만 건', label: '학습\n데이터 규모' },
-          { value: 'Top 5', label: '주요 이탈 요인\nSHAP 도출' },
+          { value: '284,807건', label: 'Kaggle\n실제 거래 데이터' },
+          { value: 'F1 0.859', label: 'KNN 최고\nF1-Score' },
+          { value: 'AUC 0.978', label: 'XGBoost\n최고 AUC-ROC' },
         ],
         roles: [
-          '데이터 수집 및 결측치 처리, 피처 엔지니어링',
-          'XGBoost 모델 학습 및 하이퍼파라미터 튜닝',
-          'SHAP 분석을 통한 모델 해석력 확보 및 마케팅팀 인사이트 전달',
-          '발표 자료 구성 및 제작',
+          'StandardScaler로 Amount·Time 피처 정규화 및 전처리',
+          'SMOTE 적용으로 사기 데이터 394건 → 227,451건 합성 증강',
+          '로지스틱 회귀·결정 트리·KNN·나이브 베이즈·SVM 기초 모델 구현',
+          '랜덤 포레스트·XGBoost·LightGBM 앙상블 모델 구현 및 튜닝',
+          '신경망(64→32 은닉층, Early Stopping) 딥러닝 모델 구현',
+          'F1-Score·AUC-ROC·Recall 기반 모델 성능 비교 분석',
         ],
-        desc: `고객 데이터를 기반으로 이탈 가능성이 높은 고객을 사전에 파악하는 분류 모델을 개발했습니다.
+        desc: `단순 정확도(Accuracy)로는 모든 거래를 정상으로 분류해도 99.8%가 나오는 극단적 불균형 데이터입니다.
 
-단순한 정확도 향상뿐 아니라 SHAP 값 분석을 통해 "왜 이 고객이 이탈할 가능성이 높은가"를 설명 가능한 형태로 제시하여, 마케팅팀이 실제 의사결정에 활용할 수 있도록 했습니다.
+이 문제를 해결하기 위해 SMOTE로 소수 클래스를 합성 증강하고, 사기 탐지 도메인에 적합한 Recall·F1·AUC-ROC를 핵심 지표로 삼아 9개 모델을 비교했습니다.
 
-(예시 텍스트 — 본인의 내용으로 교체해 주세요)`,
-        tags: ['Python', 'XGBoost', 'SHAP', 'Pandas', 'Scikit-learn'],
+결과적으로 KNN이 F1 0.859로 1위, XGBoost가 AUC-ROC 0.978로 불균형 데이터에서의 판별력이 가장 우수했습니다.`,
+        tags: ['Python', 'Scikit-learn', 'XGBoost', 'LightGBM', 'SMOTE', 'Pandas', 'Matplotlib', 'Jupyter'],
         links: [
-          { label: '🔗 GitHub', href: '#' },
-          { label: '📄 발표자료', href: '#' },
+          { label: '🔗 GitHub', href: 'https://github.com/ksh1004/credit_card_fraud_detection' },
         ],
       },
       'project-2': {
         emoji: '📈',
-        badge: '팀 프로젝트',
-        period: '2023.09 — 2023.12',
-        title: '실시간 매출 분석 대시보드',
-        titleEn: 'Real-time Sales Dashboard',
-        goal: '실시간 매출 데이터를 자동 수집·처리하여 경영진이 즉시 현황을 파악할 수 있는 대시보드를 구축합니다.',
+        badge: '개인 프로젝트',
+        period: '2025.01 — 2025.03',
+        title: 'KOSPI/KOSDAQ 주가 등락률 예측',
+        titleEn: 'Stock Price Prediction · ML/DL Comparative Analysis',
+        goal: '국내 전 종목(2,731개) 6년치 데이터를 기반으로 5거래일 후 주가 등락률을 예측하고, 9개 ML/딥러닝 모델의 성능과 2025년 실전 일반화 성능을 비교합니다.',
         metrics: [
-          { value: '일 1회', label: '자동 리포트\n생성 주기' },
-          { value: '3개 부서', label: '대시보드\n활용 부서' },
-          { value: '00%', label: '수동 작업\n절감률' },
+          { value: '2,731개', label: '수집 종목 수\n(전 상장 종목)' },
+          { value: '+8.2%', label: '백테스팅\n전략 연평균 수익률' },
+          { value: '0.71', label: '샤프 비율\n(Sharpe Ratio)' },
         ],
         roles: [
-          'BigQuery 기반 데이터 웨어하우스 스키마 설계',
-          'Airflow DAG 작성으로 ETL 파이프라인 자동화',
-          'Tableau 대시보드 구축 및 시각화',
-          '팀 내 데이터 품질 검증 프로세스 수립',
+          'FinanceDataReader + ThreadPoolExecutor로 전 종목 6년치 데이터 병렬 수집',
+          '시총 기준 층화 샘플링으로 대·중대형·중소형·소형주 각 50개 선정',
+          'RSI·MACD·볼린저밴드·ATR 등 기술적 지표 11개 산출',
+          'LSTM·랜덤 포레스트·XGBoost·선형 회귀 계열 등 9개 모델 학습 및 비교',
+          '2025년 Out-of-Sample 데이터로 과적합 여부 검증',
+          '수익률·MDD·샤프 비율 기반 백테스팅 수행',
+          'python-pptx로 22슬라이드 분량 발표 보고서 자동 생성',
         ],
-        desc: `경영진이 매일 수동으로 확인하던 매출 현황을 자동화된 파이프라인과 시각화 대시보드로 대체했습니다.
+        desc: `단기 주가 예측의 본질적 한계(무작위 50% 대비 소폭 우위)를 직접 확인하고, 복잡한 모델일수록 과적합 격차가 크다는 사실(+0.4~0.5%p)을 Out-of-Sample 검증으로 입증했습니다.
 
-Airflow를 활용해 원천 데이터 수집부터 BigQuery 적재, Tableau 갱신까지 전 과정을 자동화했으며, 데이터 이상 감지 알림 기능도 추가했습니다.
+Parquet 포맷 캐싱으로 약 8GB 데이터를 효율적으로 처리했으며, 전체 파이프라인을 5개 Jupyter 노트북으로 구조화하여 단계별 재현이 가능하도록 설계했습니다.
 
-(예시 텍스트 — 본인의 내용으로 교체해 주세요)`,
-        tags: ['Tableau', 'BigQuery', 'Airflow', 'SQL', 'Python'],
+백테스팅 결과 Buy-and-Hold(+6.1%) 대비 전략 수익률 +8.2%, MDD -18.4%를 기록했습니다.`,
+        tags: ['Python', 'TensorFlow', 'LSTM', 'XGBoost', 'Scikit-learn', 'FinanceDataReader', 'Pandas', 'Parquet', 'Jupyter'],
         links: [
-          { label: '🔗 GitHub', href: '#' },
-          { label: '🖥 Demo', href: '#' },
-        ],
-      },
-      'project-3': {
-        emoji: '🤖',
-        badge: '캡스톤 디자인',
-        period: '2023.03 — 2023.06',
-        title: '자연어 처리 기반 감성 분석',
-        titleEn: 'NLP Sentiment Analysis',
-        goal: '소셜미디어 데이터를 활용해 브랜드에 대한 긍/부정/중립 감성을 자동 분류하는 시스템을 구축합니다.',
-        metrics: [
-          { value: '00%', label: '3분류\n정확도' },
-          { value: '약 10만 건', label: '크롤링\n데이터 규모' },
-          { value: 'KoBERT', label: '파인튜닝\n베이스 모델' },
-        ],
-        roles: [
-          '트위터·인스타그램 크롤링 및 텍스트 전처리',
-          'KoBERT 모델 파인튜닝 (긍/부정/중립 3분류)',
-          'FastAPI 기반 REST API 서버 구축 및 배포',
-          '팀 발표 자료 제작 및 최종 발표 담당',
-        ],
-        desc: `한국어 소셜미디어 텍스트에 특화된 KoBERT를 파인튜닝하여 브랜드 감성 분석 모델을 개발했습니다.
-
-단순 분류를 넘어 FastAPI로 API 서버를 구축하여 실시간 감성 분석 서비스 형태로 배포했으며, 팀원들이 웹 인터페이스에서 직접 테스트할 수 있도록 간단한 UI도 제공했습니다.
-
-(예시 텍스트 — 본인의 내용으로 교체해 주세요)`,
-        tags: ['KoBERT', 'PyTorch', 'Hugging Face', 'FastAPI', 'Python'],
-        links: [
-          { label: '🔗 GitHub', href: '#' },
-          { label: '📄 논문', href: '#' },
+          { label: '🔗 GitHub', href: 'https://github.com/ksh1004/stock_prediction' },
         ],
       },
       'project-4': {
