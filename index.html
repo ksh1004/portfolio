@@ -1537,6 +1537,48 @@
       background: var(--bg-secondary);
     }
 
+    /* 인사이트 항목 목록 */
+    .modal-insights {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    /* 인사이트 개별 카드 */
+    .modal-insight-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 15px;
+    }
+
+    /* 왼쪽 아이콘 */
+    .modal-insight-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* 오른쪽 텍스트 영역 */
+    .modal-insight-body {}
+
+    .modal-insight-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .modal-insight-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
     /* 카드에 커서 포인터 추가 */
     .project-card {
       cursor: pointer;
@@ -2870,6 +2912,11 @@
         <div class="modal-section-label">상세 설명</div>
         <div class="modal-desc" id="modal-desc"></div>
 
+        <!-- 인사이트 -->
+        <div class="modal-divider"></div>
+        <div class="modal-section-label">인사이트</div>
+        <div class="modal-insights" id="modal-insights"></div>
+
         <!-- 사용 기술 -->
         <div class="modal-divider"></div>
         <div class="modal-section-label">사용 기술</div>
@@ -2917,6 +2964,23 @@
 이 문제를 해결하기 위해 SMOTE로 소수 클래스를 합성 증강하고, 사기 탐지 도메인에 적합한 Recall·F1·AUC-ROC를 핵심 지표로 삼아 9개 모델을 비교했습니다.
 
 결과적으로 KNN이 F1 0.859로 1위, XGBoost가 AUC-ROC 0.978로 불균형 데이터에서의 판별력이 가장 우수했습니다.`,
+        insights: [
+          {
+            icon: '⚖️',
+            title: '정확도(Accuracy)는 불균형 데이터에서 아무 의미가 없다',
+            desc: '전부 정상으로 분류해도 99.8%가 나오는 데이터에서 Accuracy를 지표로 삼으면 모델이 아무것도 배우지 않아도 "완벽한" 결과가 나옵니다. 평가 지표 선택이 모델 방향성 자체를 결정한다는 것을 체감했습니다.',
+          },
+          {
+            icon: '🧪',
+            title: 'SMOTE는 강력하지만 테스트 데이터에는 절대 적용하면 안 된다',
+            desc: '합성 데이터를 훈련 전체에 적용하면 테스트셋까지 오염되어 성능이 실제보다 부풀려집니다. Stratified Split으로 분리한 뒤 훈련 데이터에만 SMOTE를 적용하는 순서가 중요하다는 것을 직접 확인했습니다.',
+          },
+          {
+            icon: '🏆',
+            title: '복잡한 모델이 항상 최선은 아니다 — 도메인에 맞는 지표가 우선',
+            desc: '딥러닝이나 앙상블보다 KNN이 F1에서 1위를 기록했습니다. 사기 탐지에서는 "놓치지 않는 것(Recall)"이 "정확하게 잡는 것(Precision)"보다 중요하며, 목적에 맞는 지표와 모델을 선택하는 판단력이 기술력만큼 중요하다는 것을 배웠습니다.',
+          },
+        ],
         tags: ['Python', 'Scikit-learn', 'XGBoost', 'LightGBM', 'SMOTE', 'Pandas', 'Matplotlib', 'Jupyter'],
         links: [
           { label: '🔗 GitHub', href: 'https://github.com/ksh1004/credit_card_fraud_detection' },
@@ -2948,6 +3012,23 @@
 Parquet 포맷 캐싱으로 약 8GB 데이터를 효율적으로 처리했으며, 전체 파이프라인을 5개 Jupyter 노트북으로 구조화하여 단계별 재현이 가능하도록 설계했습니다.
 
 백테스팅 결과 Buy-and-Hold(+6.1%) 대비 전략 수익률 +8.2%, MDD -18.4%를 기록했습니다.`,
+        insights: [
+          {
+            icon: '📉',
+            title: '단기 주가 예측의 본질적 한계를 직접 확인했다',
+            desc: '9개 모델 모두 방향 정확도가 50~54% 수준으로, 무작위 대비 소폭 우위에 그쳤습니다. 모델의 성능 부족이 아니라 시장 자체의 불확실성이 원인이며, "예측 불가능성"을 수치로 증명하는 것도 유의미한 결과라는 것을 배웠습니다.',
+          },
+          {
+            icon: '🔁',
+            title: '단순한 모델이 복잡한 모델보다 일반화 성능이 높았다',
+            desc: 'LSTM 등 복잡한 모델은 훈련 성능과 Out-of-Sample(2025년 실제 데이터) 성능 간 격차가 +0.4~0.5%p였지만, 선형 모델 계열은 +0.1%p에 불과했습니다. 과적합을 방지하는 단순성의 가치를 실데이터로 체득했습니다.',
+          },
+          {
+            icon: '⚙️',
+            title: '데이터 엔지니어링이 모델링만큼 중요하다',
+            desc: '전 종목 수집 시 순차 처리로는 수시간이 걸리던 것을 ThreadPoolExecutor 병렬화와 Parquet 캐싱으로 대폭 단축했습니다. 좋은 모델보다 효율적인 파이프라인이 프로젝트 전체 속도를 좌우한다는 것을 경험했습니다.',
+          },
+        ],
         tags: ['Python', 'TensorFlow', 'LSTM', 'XGBoost', 'Scikit-learn', 'FinanceDataReader', 'Pandas', 'Parquet', 'Jupyter'],
         links: [
           { label: '🔗 GitHub', href: 'https://github.com/ksh1004/stock_prediction' },
@@ -2978,6 +3059,23 @@ Parquet 포맷 캐싱으로 약 8GB 데이터를 효율적으로 처리했으며
 백엔드 서버(Node.js/Express)와 MongoDB를 직접 설계·구현했으며, 모든 데이터 흐름(사용자 취향 저장 → 여행지 조회 → 경로 계산 → 결과 반환)을 API로 연결했습니다.
 
 경로 최적화는 가능한 장소 순열을 생성한 뒤 외부 지도 API로 이동시간을 산출하여 최솟값을 선택하는 방식으로 구현했습니다.`,
+        insights: [
+          {
+            icon: '🗂️',
+            title: 'API 설계는 프론트엔드와의 협업 언어다',
+            desc: '백엔드를 혼자 담당하면서 프론트엔드 팀원이 필요한 데이터 구조와 엔드포인트 명세를 사전에 합의하는 것이 개발 속도와 오류를 결정한다는 것을 배웠습니다. API 문서화와 명확한 응답 포맷이 팀 전체의 생산성을 좌우했습니다.',
+          },
+          {
+            icon: '🔀',
+            title: '경로 최적화는 단순 거리 계산이 아니다',
+            desc: '장소 순열을 모두 탐색하면 장소 수가 늘수록 연산이 폭발적으로 증가합니다(팩토리얼 복잡도). API 과호출 방지를 위해 탐색 범위를 제한하는 실용적 트레이드오프를 직접 설계하며, 이론과 실전의 간극을 경험했습니다.',
+          },
+          {
+            icon: '🚀',
+            title: '배포 환경은 개발 환경과 전혀 다른 문제다',
+            desc: 'AWS + Nginx 배포 과정에서 로컬에서는 발생하지 않던 환경 변수, 포트, CORS 문제를 마주쳤습니다. 코드를 잘 짜는 것과 서비스를 실제로 운영하는 것은 별개의 역량이며, 운영 환경을 고려한 설계의 중요성을 체득했습니다.',
+          },
+        ],
         tags: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'Google Maps API', 'AWS', 'Nginx', 'JavaScript'],
         links: [
           { label: '🔗 GitHub', href: 'https://github.com/Inha-onestep/MyOwnTour' },
@@ -3020,6 +3118,18 @@ Parquet 포맷 캐싱으로 약 8GB 데이터를 효율적으로 처리했으며
 
       // 상세 설명
       document.getElementById('modal-desc').textContent = data.desc;
+
+      // 인사이트 카드
+      document.getElementById('modal-insights').innerHTML = (data.insights || [])
+        .map(i =>
+          `<div class="modal-insight-item">
+             <div class="modal-insight-icon">${i.icon}</div>
+             <div class="modal-insight-body">
+               <div class="modal-insight-title">${i.title}</div>
+               <div class="modal-insight-desc">${i.desc}</div>
+             </div>
+           </div>`
+        ).join('');
 
       // 태그
       document.getElementById('modal-tags').innerHTML = data.tags
